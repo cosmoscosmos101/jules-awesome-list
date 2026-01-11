@@ -7,7 +7,15 @@ export interface CourseModule {
     solutionCode: string;
 }
 
-export const COURSE_MODULES: CourseModule[] = [
+export interface CourseTrack {
+    id: string;
+    title: string;
+    description: string;
+    icon: string; // E.g., "📊", "🤖", "☁️"
+    modules: CourseModule[];
+}
+
+const FUNDAMENTALS_MODULES: CourseModule[] = [
     {
         id: "getting-started",
         title: "1. Getting Started",
@@ -286,7 +294,7 @@ fn main() {
 
 Task:
 1. Define a function \`divide\` that returns \`Result<i32, String>\`.
-2. Return \`Ok(answer\` if division is valid, or \`Err("Division by zero")\` if dividing by 0.
+2. Return \`Ok(answer)\` if division is valid, or \`Err("Division by zero")\` if dividing by 0.
 3. Call it in main and handle the result.`,
         initialCode: `fn divide(a: i32, b: i32) -> Result<i32, String> {
     // TODO: Handle division by zero
@@ -314,3 +322,116 @@ fn main() {
 }`
     }
 ];
+
+// DATA SCIENCE MODULES
+const DS_MODULES: CourseModule[] = Array.from({ length: 10 }, (_, i) => ({
+    id: `ds-${i + 1}`,
+    title: `${i + 1}. Data Science ${i + 1}`,
+    description: `Data Science Lesson ${i + 1}`,
+    content: `Learn about Data Science concepts in Rust. Topic ${i + 1}.`,
+    initialCode: `fn main() {\n    println!("Data Science Module ${i + 1}");\n}`,
+    solutionCode: `fn main() {\n    println!("Data Science Module ${i + 1} Complete");\n}`
+}));
+// Customize titles for DS
+const dsTitles = ["Vectors & Matrices", "Reading CSV", "DataFrames", "Data Cleaning", "Filtering Data", "Aggregating Data", "Handling Missing Values", "Basic Statistics", "Plotting Charts", "Exporting Data"];
+DS_MODULES.forEach((m, i) => { if (dsTitles[i]) { m.title = `${i + 1}. ${dsTitles[i]}`; m.description = `Master ${dsTitles[i]} in Rust.`; } });
+
+
+// DATA ANALYTICS MODULES
+const DA_MODULES: CourseModule[] = Array.from({ length: 10 }, (_, i) => ({
+    id: `da-${i + 1}`,
+    title: `${i + 1}. Analytics ${i + 1}`,
+    description: `Analytics Lesson ${i + 1}`,
+    content: `Learn about Data Analytics in Rust. Topic ${i + 1}.`,
+    initialCode: `fn main() {\n    println!("Analytics Module ${i + 1}");\n}`,
+    solutionCode: `fn main() {\n    println!("Analytics Module ${i + 1} Complete");\n}`
+}));
+const daTitles = ["Statistical Analysis", "Moving Averages", "Time Series", "Grouping Data", "Pivot Tables", "Correlation", "Regression Basics", "Data Visualization", "Reporting", "Polars Deep Dive"];
+DA_MODULES.forEach((m, i) => { if (daTitles[i]) { m.title = `${i + 1}. ${daTitles[i]}`; m.description = `Master ${daTitles[i]} in Rust.`; } });
+
+
+// MACHINE LEARNING MODULES
+const ML_MODULES: CourseModule[] = Array.from({ length: 10 }, (_, i) => ({
+    id: `ml-${i + 1}`,
+    title: `${i + 1}. ML ${i + 1}`,
+    description: `Machine Learning Lesson ${i + 1}`,
+    content: `Learn about Machine Learning in Rust. Topic ${i + 1}.`,
+    initialCode: `fn main() {\n    println!("ML Module ${i + 1}");\n}`,
+    solutionCode: `fn main() {\n    println!("ML Module ${i + 1} Complete");\n}`
+}));
+const mlTitles = ["Linear Regression", "Logistic Regression", "K-Means Clustering", "K-Nearest Neighbors", "Decision Trees", "Random Forests", "Support Vector Machines", "Model Evaluation", "Model Persistence", "Linfa Crate"];
+ML_MODULES.forEach((m, i) => { if (mlTitles[i]) { m.title = `${i + 1}. ${mlTitles[i]}`; m.description = `Master ${mlTitles[i]} in Rust.`; } });
+
+
+// AI MODULES
+const AI_MODULES: CourseModule[] = Array.from({ length: 10 }, (_, i) => ({
+    id: `ai-${i + 1}`,
+    title: `${i + 1}. AI ${i + 1}`,
+    description: `Artificial Intelligence Lesson ${i + 1}`,
+    content: `Learn about AI in Rust. Topic ${i + 1}.`,
+    initialCode: `fn main() {\n    println!("AI Module ${i + 1}");\n}`,
+    solutionCode: `fn main() {\n    println!("AI Module ${i + 1} Complete");\n}`
+}));
+const aiTitles = ["Tensors", "Auto-Differentiation", "Neural Networks", "Activation Functions", "Loss Functions", "Optimizers", "Training Loops", "Inference", "Burn Crate", "Computer Vision"];
+AI_MODULES.forEach((m, i) => { if (aiTitles[i]) { m.title = `${i + 1}. ${aiTitles[i]}`; m.description = `Master ${aiTitles[i]} in Rust.`; } });
+
+// CLOUD COMPUTING MODULES
+const CLOUD_MODULES: CourseModule[] = Array.from({ length: 10 }, (_, i) => ({
+    id: `cloud-${i + 1}`,
+    title: `${i + 1}. Cloud ${i + 1}`,
+    description: `Cloud Computing Lesson ${i + 1}`,
+    content: `Learn about Cloud Computing in Rust. Topic ${i + 1}.`,
+    initialCode: `fn main() {\n    println!("Cloud Module ${i + 1}");\n}`,
+    solutionCode: `fn main() {\n    println!("Cloud Module ${i + 1} Complete");\n}`
+}));
+const cloudTitles = ["Async Rust", "Tokio Runtime", "HTTP Requests", "Axum Web Framework", "Database Connection", "Dockerizing Rust", "AWS Lambda", "Serverless", "S3 & Storage", "Microservices"];
+CLOUD_MODULES.forEach((m, i) => { if (cloudTitles[i]) { m.title = `${i + 1}. ${cloudTitles[i]}`; m.description = `Master ${cloudTitles[i]} in Rust.`; } });
+
+
+export const COURSE_TRACKS: CourseTrack[] = [
+    {
+        id: "fundamentals",
+        title: "Rust Fundamentals",
+        description: "Master the basics of Rust programming.",
+        icon: "🦀",
+        modules: FUNDAMENTALS_MODULES
+    },
+    {
+        id: "data-science",
+        title: "Data Science",
+        description: "Analyze and manipulate data with Rust.",
+        icon: "📊",
+        modules: DS_MODULES
+    },
+    {
+        id: "data-analytics",
+        title: "Data Analytics",
+        description: "Statistical analysis and reporting.",
+        icon: "📈",
+        modules: DA_MODULES
+    },
+    {
+        id: "machine-learning",
+        title: "Machine Learning",
+        description: "Build logic and prediction models.",
+        icon: "🧠",
+        modules: ML_MODULES
+    },
+    {
+        id: "ai",
+        title: "Artificial Intelligence",
+        description: "Deep learning and neural networks.",
+        icon: "🤖",
+        modules: AI_MODULES
+    },
+    {
+        id: "cloud-computing",
+        title: "Cloud Computing",
+        description: "Scalable backend and serverless Rust.",
+        icon: "☁️",
+        modules: CLOUD_MODULES
+    }
+];
+
+// Flatten all modules for compatibility with existing routing
+export const COURSE_MODULES: CourseModule[] = COURSE_TRACKS.flatMap(track => track.modules);
