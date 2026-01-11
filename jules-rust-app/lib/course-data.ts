@@ -391,7 +391,7 @@ CLOUD_MODULES.forEach((m, i) => { if (cloudTitles[i]) { m.title = `${i + 1}. ${c
 export const COURSE_TRACKS: CourseTrack[] = [
     {
         id: "fundamentals",
-        title: "Rust Fundamentals",
+        title: "Rust Programming",
         description: "Master the basics of Rust programming.",
         icon: "🦀",
         modules: FUNDAMENTALS_MODULES

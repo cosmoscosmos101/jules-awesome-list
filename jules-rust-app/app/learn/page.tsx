@@ -36,27 +36,26 @@ export default function LearnPage() {
 
                 {/* Track Selection View */}
                 {!selectedTrack && (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                    <div className="flex flex-col gap-4 max-w-2xl mx-auto">
                         {COURSE_TRACKS.map((track) => (
                             <button
                                 key={track.id}
                                 onClick={() => setSelectedTrackId(track.id)}
-                                className="relative group block h-full text-left bg-black/40 border border-accent-purple/30 hover:border-white transition-all duration-300 p-8 rounded-lg overflow-hidden backdrop-blur-sm"
+                                className="relative group block w-full text-left bg-black border border-gray-800 hover:border-white transition-all duration-300 p-6 rounded-lg overflow-hidden flex items-center gap-6"
                             >
-                                <div className="flex items-center gap-4 mb-4">
-                                    <span className="text-4xl">{track.icon}</span>
-                                    <h3 className="text-2xl font-bold text-white group-hover:text-accent-cyan transition-colors">
+                                <span className="text-3xl shrink-0">{track.icon}</span>
+                                <div className="flex-grow">
+                                    <h3 className="text-xl font-bold text-white group-hover:text-accent-cyan transition-colors font-mono">
                                         {track.title}
                                     </h3>
+                                    {/* Optional: Description could be hidden or subtle to match the clean image look 
+                                        The image just has Title. Let's keep description but subtle.
+                                    */}
+                                    {/* <p className="text-xs text-gray-500 mt-1">{track.description}</p> */}
                                 </div>
-                                <p className="text-gray-400 group-hover:text-gray-300 transition-colors">
-                                    {track.description}
-                                </p>
-                                <div className="mt-6 text-sm font-bold text-accent-purple group-hover:text-white uppercase tracking-widest flex items-center gap-2">
-                                    {track.modules.length} Lessons <span className="text-lg">→</span>
+                                <div className="text-gray-600 group-hover:text-white transition-colors">
+                                    &gt;
                                 </div>
-                                {/* Hover Glow */}
-                                <div className="absolute inset-0 bg-accent-purple/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
                             </button>
                         ))}
                     </div>
