@@ -32,6 +32,14 @@ export default function NavBar() {
                 <Link href="/teacher" className={isActive("/teacher")}>
                     Teacher
                 </Link>
+                <Link
+                    href="/docs"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-400 hover:text-accent-green"
+                >
+                    Documentation
+                </Link>
                 <div className="h-4 w-[1px] bg-white/20"></div>
                 {isLoggedIn ? (
                     <div className="flex items-center gap-3 px-4 py-2 border border-accent-cyan text-accent-cyan hover:bg-accent-cyan/10 transition-all rounded-sm cursor-pointer group">
