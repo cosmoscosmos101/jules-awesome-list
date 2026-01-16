@@ -1,6 +1,6 @@
 "use client";
 
-import { COURSE_MODULES } from "@/lib/course-data";
+import { ALL_MODULES } from "@/lib/course-data";
 import RetroEditor from "@/components/RetroEditor";
 import BackgroundCanvas from "@/components/BackgroundCanvas";
 import Link from "next/link";
@@ -8,6 +8,9 @@ import { notFound } from "next/navigation";
 import { useCourseProgress } from "@/lib/hooks/use-course-progress";
 import { useState, use, useEffect } from "react";
 import PixelCharacter from "@/components/PixelCharacter";
+import SimulationGame from "@/components/SimulationGame";
+import SimpleMarkdown from "@/components/SimpleMarkdown";
+import AIMathTutor from "@/components/AIMathTutor";
 
 interface LessonPageProps {
     params: Promise<{
@@ -19,7 +22,7 @@ export default function LessonPage({ params }: LessonPageProps) {
     const resolvedParams = use(params);
     const { slug } = resolvedParams;
 
-    const module = COURSE_MODULES.find((m) => m.id === slug);
+    const courseModule = ALL_MODULES.find((m) => m.id === slug);
     const { markAsCompleted, isCompleted, mounted } = useCourseProgress();
     const [output, setOutput] = useState("Ready to run...");
     const [isRunning, setIsRunning] = useState(false);
@@ -29,32 +32,36 @@ export default function LessonPage({ params }: LessonPageProps) {
 
     // Initialize code safely
     useEffect(() => {
-        if (module) {
-            setCode(module.initialCode);
+        if (courseModule) {
+            setCode(courseModule.initialCode);
         }
-    }, [module]);
+    }, [courseModule]);
 
     const handleToggleSolution = () => {
         if (showingSolution) {
             // Switch back to initial code
-            setCode(module?.initialCode || "");
+            setCode(courseModule?.initialCode || "");
             setShowingSolution(false);
         } else {
             if (confirm("Are you sure? This will overwrite your current code.")) {
-                setCode(module?.solutionCode || "");
+                setCode(courseModule?.solutionCode || "");
                 setShowingSolution(true);
             }
         }
     };
 
-    if (!module) {
+    if (!courseModule) {
         notFound();
     }
 
+    if (courseModule.content === "SIMULATION_MODE") {
+        return <SimulationGame />;
+    }
+
     // Find next and previous modules
-    const currentIndex = COURSE_MODULES.findIndex((m) => m.id === slug);
-    const nextModule = COURSE_MODULES[currentIndex + 1];
-    const prevModule = COURSE_MODULES[currentIndex - 1];
+    const currentIndex = ALL_MODULES.findIndex((m) => m.id === slug);
+    const nextModule = ALL_MODULES[currentIndex + 1];
+    const prevModule = ALL_MODULES[currentIndex - 1];
 
     const handleRunCode = () => {
         setIsRunning(true);
@@ -64,7 +71,7 @@ export default function LessonPage({ params }: LessonPageProps) {
         setTimeout(() => {
             setIsRunning(false);
 
-            let mockOutput = "Hello, world! \n\nProgram finished successfully.";
+            const mockOutput = "Hello, world! \n\nProgram finished successfully.";
 
             // Simple heuristic: check if solution code is mostly matched or if known answer is present
             // Since we don't have a real compiler, we trust the user if they run the code and it's not empty,
@@ -73,12 +80,12 @@ export default function LessonPage({ params }: LessonPageProps) {
 
             setOutput(mockOutput);
 
-            if (!isCompleted(module.id)) {
-                markAsCompleted(module.id);
+            if (!isCompleted(courseModule.id)) {
+                markAsCompleted(courseModule.id);
                 setShowSuccess(true);
 
                 // Check if this was the last module
-                const isLastModule = currentIndex === COURSE_MODULES.length - 1;
+                const isLastModule = currentIndex === ALL_MODULES.length - 1;
                 if (isLastModule) {
                     setTimeout(() => {
                         window.location.href = "/congrats";
@@ -90,7 +97,7 @@ export default function LessonPage({ params }: LessonPageProps) {
 
     if (!mounted) return <div className="min-h-screen bg-black text-green-500 font-mono flex items-center justify-center">Booting system...</div>;
 
-    const completed = isCompleted(module.id);
+    const completed = isCompleted(courseModule.id);
 
     return (
         <div className="min-h-screen bg-background text-foreground font-mono flex flex-col md:flex-row overflow-hidden">
@@ -98,23 +105,21 @@ export default function LessonPage({ params }: LessonPageProps) {
 
             {/* Sidebar / Content Area */}
             <div className="w-full md:w-1/2 p-6 md:p-10 overflow-y-auto h-[50vh] md:h-screen relative z-10 glass-panel border-r border-accent-purple/30">
-                <Link href="/learn" className="text-accent-cyan hover:text-accent-pink mb-6 inline-block">
+                <Link href="/learn" className="text-accent-cyan hover:text-accent-orange mb-6 inline-block">
                     &lt; Back to Syllabus
                 </Link>
 
-                <h1 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-accent-pink to-accent-cyan mb-6">
-                    {module.title}
+                <h1 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-accent-orange to-accent-cyan mb-6">
+                    {courseModule.title}
                 </h1>
 
-                <div className="prose prose-invert max-w-none prose-headings:text-accent-purple prose-a:text-accent-cyan prose-code:text-accent-pink mb-8">
-                    <div className="whitespace-pre-wrap font-sans text-gray-300 leading-relaxed">
-                        {module.content}
-                    </div>
+                <div className="prose prose-invert max-w-none prose-headings:text-accent-purple prose-a:text-accent-cyan prose-code:text-accent-orange mb-8">
+                    <SimpleMarkdown content={courseModule.content} />
                 </div>
 
                 <div className="flex justify-between mt-12 pt-6 border-t border-accent-purple/30">
                     {prevModule ? (
-                        <Link href={`/learn/${prevModule.id}`} className="text-accent-cyan hover:text-accent-pink">
+                        <Link href={`/learn/${prevModule.id}`} className="text-accent-cyan hover:text-accent-orange">
                             &lt; {prevModule.title}
                         </Link>
                     ) : (
@@ -123,7 +128,7 @@ export default function LessonPage({ params }: LessonPageProps) {
 
                     {nextModule ? (
                         completed ? (
-                            <Link href={`/learn/${nextModule.id}`} className="text-accent-cyan hover:text-accent-pink animate-pulse font-bold">
+                            <Link href={`/learn/${nextModule.id}`} className="text-accent-cyan hover:text-accent-orange animate-pulse font-bold">
                                 {nextModule.title} &gt;
                             </Link>
                         ) : (
@@ -133,7 +138,7 @@ export default function LessonPage({ params }: LessonPageProps) {
                             </span>
                         )
                     ) : (
-                        <Link href="/learn" className="text-accent-pink hover:text-white">
+                        <Link href="/learn" className="text-accent-orange hover:text-white">
                             Complete Course &gt;
                         </Link>
                     )}
@@ -190,7 +195,7 @@ export default function LessonPage({ params }: LessonPageProps) {
                     <button
                         onClick={handleRunCode}
                         disabled={isRunning}
-                        className="bg-accent-pink text-white font-bold py-3 px-8 rounded hover:bg-accent-pink/80 disabled:opacity-50 disabled:cursor-wait transition-all shadow-[0_0_15px_rgba(255,75,175,0.4)] hover:shadow-[0_0_25px_rgba(255,75,175,0.6)]"
+                        className="bg-accent-orange text-white font-bold py-3 px-8 rounded hover:bg-accent-orange/80 disabled:opacity-50 disabled:cursor-wait transition-all shadow-[0_0_15px_rgba(255,159,28,0.4)] hover:shadow-[0_0_25px_rgba(255,159,28,0.6)]"
                     >
                         {isRunning ? "Running..." : "RUN CODE >"}
                     </button>
@@ -203,6 +208,11 @@ export default function LessonPage({ params }: LessonPageProps) {
                     </pre>
                 </div>
             </div>
+
+            {/* AI Tutor Integration */}
+            {courseModule.id.startsWith("ai-") && (
+                <AIMathTutor context={courseModule.title + ": " + courseModule.description} />
+            )}
         </div>
     );
 }

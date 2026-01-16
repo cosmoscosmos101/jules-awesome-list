@@ -4,18 +4,19 @@ import { useEffect, useState } from "react";
 import RetroEditor from "@/components/RetroEditor";
 import BackgroundCanvas from "@/components/BackgroundCanvas";
 
+const scriptLines = [
+    "fn main() {",
+    "    let target = \"World\";",
+    "    println!(\"Hello, {}!\", target);",
+    "}"
+];
+
 export default function DemoPage() {
     const [code, setCode] = useState("");
     const [output, setOutput] = useState("");
     const [isRunning, setIsRunning] = useState(false);
 
-    // Script to type out
-    const scriptLines = [
-        "fn main() {",
-        "    let target = \"World\";",
-        "    println!(\"Hello, {}!\", target);",
-        "}"
-    ];
+
 
     useEffect(() => {
         let currentLine = 0;
@@ -77,7 +78,7 @@ export default function DemoPage() {
                 </div>
 
                 <div className={`p-4 border-t border-accent-cyan/30 flex justify-between items-center transition-all ${output ? "bg-accent-green/10" : ""}`}>
-                    <button className={`px-4 py-2 bg-accent-pink text-white font-bold rounded ${isRunning ? "opacity-50" : ""}`}>
+                    <button className={`px-4 py-2 bg-accent-orange text-white font-bold rounded ${isRunning ? "opacity-50" : ""}`}>
                         {isRunning ? "Running..." : "RUN CODE >"}
                     </button>
 

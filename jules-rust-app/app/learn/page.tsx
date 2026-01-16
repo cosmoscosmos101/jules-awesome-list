@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
-import { COURSE_MODULES, COURSE_TRACKS } from "@/lib/course-data";
+import { COURSE_TRACKS } from "@/lib/course-data";
 import BackgroundCanvas from "@/components/BackgroundCanvas";
 import PixelCharacter from "@/components/PixelCharacter";
 import { useCourseProgress } from "@/lib/hooks/use-course-progress";
@@ -23,10 +23,10 @@ export default function LearnPage() {
 
             <div className="relative z-10 container mx-auto px-4 py-8">
                 <header className="mb-12 text-center">
-                    <Link href="/" className="inline-block mb-4 text-accent-cyan hover:text-accent-pink transition-colors">
+                    <Link href="/" className="inline-block mb-4 text-accent-cyan hover:text-accent-orange transition-colors">
                         &lt; Back to Home
                     </Link>
-                    <h1 className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-accent-pink to-accent-cyan text-shadow-glow mb-4">
+                    <h1 className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-accent-orange to-accent-cyan text-shadow-glow mb-4">
                         {selectedTrack ? selectedTrack.title : "Select a Track"}
                     </h1>
                     <p className="text-xl text-accent-purple">
@@ -100,7 +100,7 @@ export default function LearnPage() {
                                                 <div className="p-6 h-full flex flex-col">
                                                     <div className="flex justify-between items-start mb-4">
                                                         <span className="text-accent-cyan font-bold text-lg">0{index + 1}</span>
-                                                        <div className="w-2 h-2 bg-accent-pink animate-pulse"></div>
+                                                        <div className="w-2 h-2 bg-accent-orange animate-pulse"></div>
                                                     </div>
                                                     <h3 className="text-xl font-bold text-foreground group-hover:text-accent-cyan mb-2 transition-colors">
                                                         {module.title}
@@ -108,7 +108,7 @@ export default function LearnPage() {
                                                     <p className="text-sm text-gray-400 flex-grow">
                                                         {module.description}
                                                     </p>
-                                                    <div className="mt-4 flex items-center text-accent-pink text-sm uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity">
+                                                    <div className="mt-4 flex items-center text-accent-orange text-sm uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity">
                                                         Start Module &gt;
                                                     </div>
                                                 </div>

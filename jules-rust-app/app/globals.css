@@ -10,9 +10,11 @@ a {
 :root {
   --background: #1D0245;
   --foreground: #ffffff;
-  --accent-pink: #ff4baf;
+  --accent-pink: #FF69B4;
+  /* Now Orange */
   --accent-cyan: #00f5ff;
   --accent-yellow: #ebd401;
+  --accent-orange: #FF9F1C;
   --accent-purple: #7e50a3;
   --code-bg: #10002b;
 }
@@ -23,6 +25,7 @@ a {
   --color-accent-pink: var(--accent-pink);
   --color-accent-cyan: var(--accent-cyan);
   --color-accent-yellow: var(--accent-yellow);
+  --color-accent-orange: var(--accent-orange);
   --color-accent-purple: var(--accent-purple);
   --color-code-bg: var(--code-bg);
   --font-mono: var(--font-roboto-mono);
@@ -49,7 +52,20 @@ body {
 ::-webkit-scrollbar-thumb {
   background: var(--accent-pink);
   border-radius: 0px;
-  /* Pixelated feel */
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 20s linear infinite;
 }
 
 @layer utilities {
@@ -109,7 +125,7 @@ pre[class*="language-"] {
 .token.constant,
 .token.symbol,
 .token.deleted {
-  color: #ff79c6;
+  color: var(--accent-pink);
   /* Pink */
 }
 
@@ -148,8 +164,8 @@ pre[class*="language-"] {
 }
 
 .token.keyword {
-  color: #ff79c6;
-  /* Pink */
+  color: var(--accent-cyan);
+  /* Cyan */
 }
 
 

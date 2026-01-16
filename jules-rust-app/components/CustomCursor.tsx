@@ -16,7 +16,7 @@ export default function CustomCursor() {
     const [position, setPosition] = useState({ x: 0, y: 0 });
     const [isHovering, setIsHovering] = useState(false);
     const [particles, setParticles] = useState<Particle[]>([]);
-    const [particleId, setParticleId] = useState(0);
+
 
     useEffect(() => {
         const updatePosition = (e: MouseEvent) => {
@@ -55,11 +55,7 @@ export default function CustomCursor() {
             (link as HTMLElement).style.cursor = "none";
         });
 
-        const observer = new MutationObserver(() => {
-            // Re-apply cursor none for dynamic elements if simplest approach fails
-            // But for now, using global CSS might be better. 
-            // We'll trust the component to render the custom cursor.
-        });
+
 
         const animateParticles = () => {
             setParticles(prev =>

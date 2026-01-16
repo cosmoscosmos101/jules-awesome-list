@@ -64,7 +64,7 @@ export default function IDE() {
 
                 {/* Left Panel: Instructions */}
                 <div className="w-full md:w-1/3 bg-code-bg/50 border border-accent-purple/30 rounded-lg p-6 overflow-y-auto custom-scrollbar">
-                    <h2 className="text-2xl font-bold text-accent-pink mb-4">Exercise 01</h2>
+                    <h2 className="text-2xl font-bold text-accent-orange mb-4">Exercise 01</h2>
                     <div className="prose prose-invert prose-code:text-accent-yellow prose-headings:text-accent-cyan text-sm leading-relaxed whitespace-pre-line">
                         {LESSON_CONTENT}
                     </div>
@@ -72,7 +72,7 @@ export default function IDE() {
                     <div className="mt-8 p-4 bg-accent-purple/10 border border-accent-purple/30 rounded">
                         <p className="text-xs text-accent-purple uppercase tracking-wider mb-2">Objective</p>
                         <div className="flex items-center gap-2 text-green-400 text-sm">
-                            <span>[ ]</span> Print "Hello, world!"
+                            <span>[ ]</span> Print &quot;Hello, world!&quot;
                         </div>
                     </div>
                 </div>
@@ -91,7 +91,7 @@ export default function IDE() {
                     <div className="flex justify-end gap-4">
                         <button
                             onClick={() => setCode(INITIAL_CODE)}
-                            className="px-4 py-2 text-accent-pink border border-accent-pink hover:bg-accent-pink/10 text-sm uppercase tracking-wider"
+                            className="px-4 py-2 text-accent-orange border border-accent-orange hover:bg-accent-orange/10 text-sm uppercase tracking-wider"
                         >
                             Reset
                         </button>

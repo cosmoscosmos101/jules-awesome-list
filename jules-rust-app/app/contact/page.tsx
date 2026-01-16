@@ -20,18 +20,18 @@ export default function ContactPage() {
                 <form className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label className="block text-xs uppercase tracking-widest text-green-500 mb-2">Identity / Name</label>
-                            <input className="w-full bg-green-500/5 border border-green-500/30 p-3 text-green-500 focus:outline-none focus:border-green-400 focus:bg-green-500/10 transition-all placeholder-green-900" placeholder="Agent Name..." />
+                            <label htmlFor="name" className="block text-xs uppercase tracking-widest text-green-500 mb-2">Identity / Name</label>
+                            <input id="name" className="w-full bg-green-500/5 border border-green-500/30 p-3 text-green-500 focus:outline-none focus:border-green-400 focus:bg-green-500/10 transition-all placeholder-green-900" placeholder="Agent Name..." />
                         </div>
                         <div>
-                            <label className="block text-xs uppercase tracking-widest text-green-500 mb-2">Frequency / Email</label>
-                            <input className="w-full bg-green-500/5 border border-green-500/30 p-3 text-green-500 focus:outline-none focus:border-green-400 focus:bg-green-500/10 transition-all placeholder-green-900" placeholder="encrypted@comms.net" />
+                            <label htmlFor="email" className="block text-xs uppercase tracking-widest text-green-500 mb-2">Frequency / Email</label>
+                            <input id="email" className="w-full bg-green-500/5 border border-green-500/30 p-3 text-green-500 focus:outline-none focus:border-green-400 focus:bg-green-500/10 transition-all placeholder-green-900" placeholder="encrypted@comms.net" />
                         </div>
                     </div>
 
                     <div>
-                        <label className="block text-xs uppercase tracking-widest text-green-500 mb-2">Payload / Message</label>
-                        <textarea rows={6} className="w-full bg-green-500/5 border border-green-500/30 p-3 text-green-500 focus:outline-none focus:border-green-400 focus:bg-green-500/10 transition-all placeholder-green-900" placeholder="Enter transmission data..."></textarea>
+                        <label htmlFor="message" className="block text-xs uppercase tracking-widest text-green-500 mb-2">Payload / Message</label>
+                        <textarea id="message" rows={6} className="w-full bg-green-500/5 border border-green-500/30 p-3 text-green-500 focus:outline-none focus:border-green-400 focus:bg-green-500/10 transition-all placeholder-green-900" placeholder="Enter transmission data..."></textarea>
                     </div>
 
                     <button className="px-8 py-3 bg-green-500 text-black font-bold uppercase hover:bg-green-400 hover:shadow-[0_0_20px_rgba(0,255,0,0.5)] transition-all w-full md:w-auto">

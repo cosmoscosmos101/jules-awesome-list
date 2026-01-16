@@ -29,13 +29,13 @@ export default function RetroEditor({
     };
 
     return (
-        <div className="relative font-mono rounded-lg overflow-hidden border-2 border-accent-pink shadow-[0_0_15px_rgba(255,75,175,0.4)] bg-code-bg">
+        <div className="relative font-mono rounded-lg overflow-hidden border-2 border-accent-purple shadow-[0_0_15px_rgba(126,80,163,0.4)] bg-code-bg">
             {/* Terminal Title Bar */}
-            <div className="bg-accent-pink/20 border-b border-accent-pink/50 p-2 flex items-center space-x-2">
+            <div className="bg-accent-purple/20 border-b border-accent-purple/50 p-2 flex items-center space-x-2">
                 <div className="w-3 h-3 rounded-full bg-red-500" />
                 <div className="w-3 h-3 rounded-full bg-yellow-500" />
                 <div className="w-3 h-3 rounded-full bg-green-500" />
-                <span className="text-xs text-accent-pink ml-4 opacity-80">jules_assignment.rs</span>
+                <span className="text-xs text-accent-purple ml-4 opacity-80">jules_assignment.rs</span>
             </div>
 
             {/* Editor Area */}
@@ -43,7 +43,7 @@ export default function RetroEditor({
                 <Editor
                     value={code}
                     onValueChange={handleChange}
-                    highlight={(code) => highlight(code, languages.rust, "rust")}
+                    highlight={(code) => highlight(code, languages[language] || languages.rust, language)}
                     padding={10}
                     readOnly={readOnly}
                     style={{

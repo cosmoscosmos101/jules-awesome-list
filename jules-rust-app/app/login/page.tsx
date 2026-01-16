@@ -22,7 +22,7 @@ export default function LoginPage() {
         setTimeout(() => {
             if (username === "admin" && password === "admin") {
                 // Success
-                login();
+                login(username);
                 router.push("/learn");
             } else {
                 setError("ACCESS DENIED: Invalid Credentials");
@@ -42,7 +42,7 @@ export default function LoginPage() {
                     <h1 className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-accent-cyan to-white mb-2 fluid-hover">
                         SYSTEM_LOGIN
                     </h1>
-                    <p className="text-accent-pink font-mono text-xs tracking-widest uppercase">
+                    <p className="text-accent-orange font-mono text-xs tracking-widest uppercase">
                         Secure Access Terminal v9.0
                     </p>
                 </div>
@@ -67,9 +67,9 @@ export default function LoginPage() {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             placeholder="PASSWORD"
-                            className="w-full bg-black/50 border-b-2 border-gray-700 p-4 text-white font-mono focus:border-accent-pink focus:outline-none focus:bg-accent-pink/5 transition-all outline-none"
+                            className="w-full bg-black/50 border-b-2 border-gray-700 p-4 text-white font-mono focus:border-accent-orange focus:outline-none focus:bg-accent-orange/5 transition-all outline-none"
                         />
-                        <div className="absolute right-4 top-4 text-gray-500 group-focus-within:text-accent-pink transition-colors">
+                        <div className="absolute right-4 top-4 text-gray-500 group-focus-within:text-accent-orange transition-colors">
                             ***
                         </div>
                     </div>

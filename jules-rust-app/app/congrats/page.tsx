@@ -11,9 +11,9 @@ export default function CongratsPage() {
 
     // Fireworks effect
     useEffect(() => {
-        const colors = ["#ff4baf", "#00f5ff", "#ebd401", "#7e50a3", "#50fa7b"];
+        const colors = ["#FF9F1C", "#00f5ff", "#ebd401", "#7e50a3", "#50fa7b"];
 
-        const interval = setInterval(() => {
+        const interval = window.setInterval(() => {
             const id = Date.now();
             const x = Math.random() * 100;
             const y = Math.random() * 80;
@@ -72,7 +72,7 @@ export default function CongratsPage() {
                     🏆 🦀 🚀
                 </div>
 
-                <h1 className="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-accent-yellow via-white to-accent-pink mb-8 fluid-hover">
+                <h1 className="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-accent-yellow via-white to-accent-orange mb-8 fluid-hover">
                     MISSION ACCOMPLISHED!
                 </h1>
 
@@ -91,7 +91,7 @@ export default function CongratsPage() {
                     </Link>
                     <Link
                         href="/learn"
-                        className="px-8 py-4 border-2 border-accent-pink text-accent-pink font-bold text-xl rounded hover:bg-accent-pink hover:text-white transition-all uppercase tracking-widest"
+                        className="px-8 py-4 border-2 border-accent-orange text-accent-orange font-bold text-xl rounded hover:bg-accent-orange hover:text-white transition-all uppercase tracking-widest"
                     >
                         Review Missions
                     </Link>
