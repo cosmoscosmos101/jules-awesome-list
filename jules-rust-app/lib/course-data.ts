@@ -1765,5 +1765,5 @@ export const COURSE_TRACKS: CourseTrack[] = [
 ];
 
 // Flatten all modules for compatibility with existing routing
-export const ALL_MODULES = [...FUNDAMENTALS_MODULES, ...DS_MODULES, ...DA_MODULES, ...AI_MATH_MODULES, ...WARFARE_MODULES];
+export const ALL_MODULES = [...FUNDAMENTALS_MODULES, ...DS_MODULES, ...DA_MODULES, ...ML_MODULES, ...AI_MODULES, ...CLOUD_MODULES, ...AI_MATH_MODULES, ...WARFARE_MODULES];
 export const COURSE_MODULES: CourseModule[] = COURSE_TRACKS.flatMap(track => track.modules);

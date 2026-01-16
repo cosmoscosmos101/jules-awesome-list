@@ -22,7 +22,7 @@ export default function DemoPage() {
         let currentLine = 0;
         let charIndex = 0;
         let currentCode = "";
-        let timeoutId: NodeJS.Timeout;
+        let timeoutId: ReturnType<typeof setTimeout>;
 
         const typeChar = () => {
             if (currentLine >= scriptLines.length) {
