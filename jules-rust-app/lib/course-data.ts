@@ -1697,6 +1697,195 @@ When we perform operations like \`2.0 * 5.0\`, we are doing **scalar multiplicat
     
     println!("Final learning rate: {:.4}", learning_rate);
 }`
+    },
+    {
+        id: "ai-calculus-derivatives",
+        title: "Calculus: Derivatives",
+        description: "Understanding rates of change.",
+        content: `## The Derivative
+        
+Calculus is the study of change. The **derivative** measures how a function changes as its input changes - intuitively, it's the "slope" at a specific point.
+
+For a function $f(x) = x^2$, the derivative is $f'(x) = 2x$.
+This means if you are at $x=3$, the rate of change is $2(3) = 6$.
+
+### Numerical Differentiation
+Computers often approximate derivatives using the **difference quotient**:
+$$ f'(x) \\approx \\frac{f(x + h) - f(x)}{h} $$
+where $h$ is a very small number (e.g., 0.0001).
+
+## Task
+1. Define a function \`f(x)\` that returns $x^2$.
+2. Define a function \`derivative(x, h)\` that implements the formula above.
+3. Calculate the approximate slope at $x=3.0$ with $h=0.0001$.`,
+        initialCode: `fn main() {
+    let x = 3.0;
+    let h = 0.0001;
+    
+    // TODO: Print the approximate derivative
+}
+
+fn f(x: f64) -> f64 {
+    // TODO: Return x squared
+    0.0
+}
+
+fn derivative_approx(x: f64, h: f64) -> f64 {
+    // TODO: Implement (f(x+h) - f(x)) / h
+    0.0
+}`,
+        solutionCode: `fn main() {
+    let x = 3.0;
+    let h = 0.0001;
+    
+    let slope = derivative_approx(x, h);
+    println!("Approx slope at x=3.0 is {:.4} (Expected: 6.0)", slope);
+}
+
+fn f(x: f64) -> f64 {
+    x * x
+}
+
+fn derivative_approx(x: f64, h: f64) -> f64 {
+    (f(x + h) - f(x)) / h
+}`
+    },
+    {
+        id: "ai-prob-bernoulli",
+        title: "Prob & Stat: Bernoulli",
+        description: "The coin flip of probability distributions.",
+        content: `## Bernoulli Distribution
+        
+The **Bernoulli distribution** models a single experiment with two possible outcomes: "Success" (1) and "Failure" (0). 
+It is the building block for more complex distributions.
+
+- Probability of Success: $p$
+- Probability of Failure: $1 - p$
+
+### Task
+Simulate a biased coin flip where probability of heads ($p$) is 0.7.
+1. Create a "random" float between 0.0 and 1.0 (hardcode a value to simulate it, e.g., 0.6).
+2. If the value is less than $p$ (0.7), print "Heads (1)".
+3. Otherwise, print "Tails (0)".`,
+        initialCode: `fn main() {
+    let p = 0.7; // Probability of heads
+    let random_val = 0.6; // Simulating a random number generator output
+    
+    // TODO: Check if random_val < p and print result
+}`,
+        solutionCode: `fn main() {
+    let p = 0.7;
+    let random_val = 0.6;
+    
+    if random_val < p {
+        println!("Heads (1)");
+    } else {
+        println!("Tails (0)");
+    }
+}`
+    },
+    {
+        id: "ai-opt-gradient",
+        title: "Optimization: Gradient Descent",
+        description: "How machines learn by minimizing error.",
+        content: `## Gradient Descent
+        
+To train a neural network, we want to find weights $w$ that minimize the error (Loss $L$). 
+We do this by taking small steps opposite to the gradient (the direction of steepest value increase).
+
+**Update Rule:**
+$$ w_{new} = w_{old} - \\text{learning\\_rate} \\times \\text{gradient} $$
+
+### Task
+1. Given current weight $w = 10.0$.
+2. Gradient $\\nabla L = 2.0$.
+3. Learning rate $\\eta = 0.1$.
+4. Perform one update step and print the new weight.`,
+        initialCode: `fn main() {
+    let mut w = 10.0;
+    let gradient = 2.0;
+    let lr = 0.1;
+    
+    // TODO: Update w
+    // TODO: Print new w
+}`,
+        solutionCode: `fn main() {
+    let mut w = 10.0;
+    let gradient = 2.0;
+    let lr = 0.1;
+    
+    w = w - (lr * gradient);
+    
+    println!("New weight: {:.1}", w);
+}`
+    },
+    {
+        id: "ai-graph-adj",
+        title: "Graph Theory: Adjacency Matrix",
+        description: "Representing networks and connections.",
+        content: `## Graphs
+        
+A graph consists of **Nodes** (vertices) and **Edges** (connections). 
+In AI, graphs are used for knowledge bases, social networks, and even neural network architectures.
+
+One way to represent a graph is an **Adjacency Matrix**. For 3 nodes (0, 1, 2):
+\`\`\`text
+   0 1 2
+0 [0 1 0]  <- Node 0 connects to 1
+1 [1 0 1]  <- Node 1 connects to 0 and 2
+2 [0 1 0]  <- Node 2 connects to 1
+\`\`\`
+
+### Task
+1. Create a 3x3 matrix (vector of vectors) representing the graph above.
+2. Check if Node 0 matches with Node 1 (row 0, col 1) and print "Connected".`,
+        initialCode: `fn main() {
+    // TODO: Define the 3x3 matrix using vec![]
+    
+    // TODO: Check connection between 0 and 1
+}`,
+        solutionCode: `fn main() {
+    let graph = vec![
+        vec![0, 1, 0],
+        vec![1, 0, 1],
+        vec![0, 1, 0]
+    ];
+    
+    if graph[0][1] == 1 {
+        println!("Node 0 is connected to Node 1");
+    } else {
+        println!("No connection");
+    }
+}`
+    },
+    {
+        id: "ai-info-entropy",
+        title: "Info Theory: Entropy",
+        description: "Measuring uncertainty and information.",
+        content: `## Entropy
+        
+**Entropy** ($H$) measures the unpredictability of a system. High entropy means "very random" (fair coin). Low entropy means "predictable" (biased coin).
+
+For a binary event (p, 1-p), the formula is:
+$$ H(p) = - [ p \\log_2(p) + (1-p) \\log_2(1-p) ] $$
+
+### Task
+1. Given $p = 0.5$ (Fair coin).
+2. Calculate entropy. (Hint: $\\log_2(0.5) = -1$).
+3. Result should be 1.0 bit.`,
+        initialCode: `fn main() {
+    let p = 0.5;
+    
+    // TODO: Calculate entropy formula
+    // Note: Use 0.5 log2 0.5 ...
+}`,
+        solutionCode: `fn main() {
+    let p = 0.5;
+    // In Rust, f64.log2() calculates base-2 logarithm
+    let entropy = - (p * p.log2() + (1.0 - p) * (1.0 - p).log2());
+    
+    println!("Entropy of fair coin: {:.1} bits", entropy);
+}`
     }
 ];
 

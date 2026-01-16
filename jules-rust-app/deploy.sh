@@ -2,7 +2,7 @@
 
 # Using npx vercel since global vercel is not found
 # save stdout and stderr to files
-npx vercel deploy --yes >deployment-url.txt 2>error.txt
+npx -y vercel deploy --yes >deployment-url.txt 2>error.txt
  
 # check the exit code
 code=$?

@@ -1,25 +1,25 @@
-Vercel CLI 50.4.4
+Vercel CLI 50.4.5
 Retrieving project…
 Deploying cozmoz01s-projects/hack-rust-v2
-Uploading [--------------------] (0.0B/66.3KB)
-Uploading [=======-------------] (25.7KB/66.3KB)
-Uploading [============--------] (41.7KB/66.3KB)
-Uploading [================----] (53.0KB/66.3KB)
-Uploading [====================] (66.3KB/66.3KB)
-Inspect: https://vercel.com/cozmoz01s-projects/hack-rust-v2/FT35tQ9B1cujtEoBp2GSGLLRUrfx [4s]
-Preview: https://hack-rust-v2-p55j5bazk-cozmoz01s-projects.vercel.app [4s]
-Queued...
-Queued...
+Uploading [--------------------] (0.0B/326.4KB)
+Uploading [=====---------------] (96.5KB/326.4KB)
+Uploading [==========----------] (169.9KB/326.4KB)
+Uploading [===============-----] (249.9KB/326.4KB)
+Uploading [====================] (326.4KB/326.4KB)
+Inspect: https://vercel.com/cozmoz01s-projects/hack-rust-v2/6WMtpLY1LyodUzjUDoEJCeugs9N6 [4s]
+Preview: https://hack-rust-v2-h92w4hy5e-cozmoz01s-projects.vercel.app [4s]
+Building...
+Building...
 Building: Running build in Washington, D.C., USA (East) – iad1
 Building: Build machine configuration: 2 cores, 8 GB
 Building: Retrieving list of deployment files...
-Building: Downloading 55 deployment files...
-Building: Restored build cache from previous deployment (GdedwziTm5R5HB4YV32LoFmY35mj)
+Building: Downloading 59 deployment files...
+Building: Restored build cache from previous deployment (FT35tQ9B1cujtEoBp2GSGLLRUrfx)
 Building: Running "vercel build"
-Building: Vercel CLI 50.4.3
+Building: Vercel CLI 50.4.4
 Building: Running "install" command: `npm install`...
-Building: up to date, audited 339 packages in 2s
-Building: 139 packages are looking for funding
+Building: added 79 packages, and audited 418 packages in 3s
+Building: 205 packages are looking for funding
 Building: run `npm fund` for details
 Building: 1 moderate severity vulnerability
 Building: To address all issues, run:
@@ -29,29 +29,31 @@ Building: Detected Next.js version: 15.3.8
 Building: Running "next build"
 Building: ▲ Next.js 15.3.8
 Building: Creating an optimized production build ...
-Building: ✓ Compiled successfully in 4.0s
+Building: ✓ Compiled successfully in 6.0s
 Building: Linting and checking validity of types ...
 Building: ./components/NavBar.tsx
 Building: 40:33  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
 Building: info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/app/api-reference/config/eslint#disabling-rules
 Building: Collecting page data ...
-Building: Generating static pages (0/14) ...
-Building: Generating static pages (3/14)
-Building: Generating static pages (6/14)
-Building: Generating static pages (10/14)
-Building: ✓ Generating static pages (14/14)
+Building: Generating static pages (0/16) ...
+Building: Generating static pages (4/16)
+Building: Generating static pages (8/16)
+Building: Generating static pages (12/16)
+Building: ✓ Generating static pages (16/16)
 Building: Finalizing page optimization ...
 Building: Collecting build traces ...
 Building: Route (app)                                 Size  First Load JS
 Building: ┌ ○ /                                    1.85 kB         106 kB
 Building: ├ ○ /_not-found                            977 B         102 kB
-Building: ├ ƒ /api/summarize-class                   136 B         101 kB
+Building: ├ ○ /ai-math                             2.97 kB         108 kB
+Building: ├ ƒ /api/ai-tutor                          138 B         101 kB
+Building: ├ ƒ /api/summarize-class                   138 B         101 kB
 Building: ├ ○ /congrats                            2.11 kB         107 kB
 Building: ├ ○ /contact                             1.58 kB         103 kB
 Building: ├ ○ /demo                                2.05 kB         115 kB
 Building: ├ ○ /ide                                 2.92 kB         124 kB
-Building: ├ ○ /learn                               1.59 kB         125 kB
-Building: ├ ƒ /learn/[slug]                        5.14 kB         140 kB
+Building: ├ ○ /learn                               1.59 kB         126 kB
+Building: ├ ƒ /learn/[slug]                        39.9 kB         175 kB
 Building: ├ ○ /login                               2.66 kB         104 kB
 Building: ├ ○ /profile                              3.5 kB         110 kB
 Building: └ ○ /teacher                             3.39 kB         105 kB
@@ -61,11 +63,11 @@ Building: ├ chunks/684-8aaf096c72895390.js       46.1 kB
 Building: └ other shared chunks (total)          1.93 kB
 Building: ○  (Static)   prerendered as static content
 Building: ƒ  (Dynamic)  server-rendered on demand
-Building: Traced Next.js server files in: 68.922ms
-Building: Created all serverless functions in: 183.733ms
-Building: Collected static files (public/, static/, .next/static): 8.879ms
-Building: Build Completed in /vercel/output [27s]
+Building: Traced Next.js server files in: 99.722ms
+Building: Created all serverless functions in: 130.09ms
+Building: Collected static files (public/, static/, .next/static): 7.963ms
+Building: Build Completed in /vercel/output [30s]
 Building: Deploying outputs...
-[2K[1A[2K[GPreview: https://hack-rust-v2-p55j5bazk-cozmoz01s-projects.vercel.app [42s]
+[2K[1A[2K[GPreview: https://hack-rust-v2-h92w4hy5e-cozmoz01s-projects.vercel.app [48s]
 Completing...
 To deploy to production (hack-rust-v2.vercel.app), run `vercel --prod`
