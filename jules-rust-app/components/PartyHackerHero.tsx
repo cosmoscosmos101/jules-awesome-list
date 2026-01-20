@@ -132,7 +132,7 @@ export default function PartyHackerHero() {
                 <div className="mt-8 flex justify-center gap-6 items-center">
                     <div className="h-[1px] w-12 bg-gray-500" />
                     <p className="text-sm md:text-base text-gray-400 font-bold tracking-widest uppercase">
-                        Designed by <span className="text-yellow-400">NanoBanana</span>
+                        <span className="text-yellow-400">System_Online</span>
                     </p>
                     <div className="h-[1px] w-12 bg-gray-500" />
                 </div>

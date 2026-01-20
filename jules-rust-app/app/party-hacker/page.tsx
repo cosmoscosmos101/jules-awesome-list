@@ -53,44 +53,37 @@ export default function PartyHackerPage() {
     useGSAP(() => {
         if (!whoRef.current || !containerRef.current) return;
 
+        // 8-bit style animation: simple, stepped movements
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: containerRef.current,
                 start: "top top",
-                end: "+=300%", // Pin for 300% of the viewport height (long scroll)
+                end: "+=200%",
                 pin: true,
-                scrub: 1, // Smooth scrubbing effect (1 second catch-up)
-                anticipatePin: 1,
+                scrub: 1,
             }
         });
 
-        // 1. Initial State: WHO is visible (or fades in immediately), WE and ARE are hidden
-        // We assume "WHO" starts visible or fades in at 0% scroll
-
-        // 2. Reveal "WE"
-        tl.fromTo(".text-we",
-            { x: -100, opacity: 0, scale: 0.8 },
-            { x: 0, opacity: 1, scale: 1, duration: 2, ease: "power2.out" }
+        // 1. Reveal PAST Image (Pixelate in?)
+        tl.fromTo(".past-img",
+            { opacity: 0, scale: 0.1 },
+            { opacity: 1, scale: 1, duration: 1, ease: "steps(5)" }
         )
+            .fromTo(".past-text",
+                { opacity: 0, y: 20 },
+                { opacity: 1, y: 0, duration: 1, ease: "steps(3)" }
+            );
 
-            // 3. Reveal "ARE" (slightly overlapping or sequential)
-            .fromTo(".text-are",
-                { x: -100, opacity: 0, scale: 0.8 },
-                { x: 0, opacity: 1, scale: 1, duration: 2, ease: "power2.out" },
-                "-=0.5" // Start slightly before "WE" finishes
-            )
-
-            // 4. Reveal Description Paragraph (Slide up)
-            .fromTo(".text-desc",
-                { y: 100, opacity: 0 },
-                { y: 0, opacity: 1, duration: 2, ease: "power2.out" }
-            )
-
-            // 5. Enhance visuals - emphasize/highlight words
-            .to(".text-who", { color: "white", duration: 1 }, "-=1")
-            .to(".text-we", { color: "white", duration: 1 }, "-=1")
-            .to(".text-are", { color: "white", duration: 1 }, "-=1");
-
+        // 2. Transition / Reveal FUTURE Image
+        tl.fromTo(".future-img",
+            { opacity: 0, x: 100 },
+            { opacity: 1, x: 0, duration: 1, ease: "steps(5)" }
+        )
+            .fromTo(".future-text",
+                { opacity: 0, x: -50 },
+                { opacity: 1, x: 0, duration: 1, ease: "steps(3)" },
+                "<" // start same time as image
+            );
 
     }, { scope: mainRef });
 
@@ -105,31 +98,53 @@ export default function PartyHackerPage() {
                 <FlowSlider />
             </section>
 
-            {/* 3. Who We Are / Intro (Pinned Section) */}
-            <div ref={containerRef} className="relative h-screen bg-[#17E668] text-black w-full z-10">
-                <div ref={whoRef} className="h-full w-full flex flex-col md:flex-row items-center justify-center p-8 md:p-20 overflow-hidden">
+            {/* 3. Past & Future (8-bit Section) */}
+            <div ref={containerRef} className="relative bg-neutral-900 text-white w-full z-10 overflow-hidden">
+                <div ref={whoRef} className="flex flex-col md:flex-row h-[200vh] w-full">
 
-                    {/* Giant Stacked Text */}
-                    <div className="flex-1 flex flex-col justify-center items-start z-10">
-                        <h2 className="text-[15vw] md:text-[12vw] font-bold leading-[0.8] tracking-tighter">
-                            <div className="text-who text-flow-black">WHO</div>
-                            <div className="text-we opacity-0 text-flow-black">WE</div>
-                            <div className="text-are opacity-0 text-flow-black">ARE</div>
+                    {/* LEFT PANEL: THE PAST */}
+                    <div className="past-panel w-full md:w-1/2 h-screen sticky top-0 flex flex-col items-center justify-center p-8 bg-neutral-800 border-r-4 border-black">
+                        <h2 className="text-4xl md:text-6xl font-black mb-8 text-yellow-500 tracking-tighter" style={{ fontFamily: '"Press Start 2P", cursive' }}>
+                            THE PAST
                         </h2>
-                    </div>
-
-                    {/* Description Text */}
-                    <div className="flex-1 mt-8 md:mt-0 flex items-center z-10">
-                        <p className="text-desc opacity-0 text-xl md:text-4xl font-medium leading-tight max-w-xl text-flow-black">
-                            The Flow Party is a <span className="font-serif italic bg-white px-2">safe</span>, inclusive, and fun space for website developers and designers.
-                            <br /><br />
-                            We work hard but always in a <span className="font-serif italic bg-white px-2">Party Mood</span>.
+                        <div className="relative w-64 h-64 md:w-80 md:h-80 border-4 border-white pixel-art-container bg-black shadow-[10px_10px_0px_0px_rgba(255,255,255,0.2)]">
+                            <img
+                                src="/images/party-hacker/past.png"
+                                alt="8-bit Programmer Past"
+                                className="w-full h-full object-cover pixelated opacity-0 past-img"
+                                style={{ imageRendering: "pixelated" }}
+                            />
+                            {/* Overlay Scanlines */}
+                            <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,6px_100%] pointer-events-none" />
+                        </div>
+                        <p className="mt-8 max-w-sm text-center font-mono text-green-400 text-sm md:text-base leading-relaxed past-text opacity-0">
+                            &gt; INSERT COIN<br />
+                            We started in cluttered rooms, fueled by caffeine and curiosity. The code was raw, the screens were heavy, and the connection was dial-up. <br />
+                            <span className="animate-pulse">_</span>
                         </p>
                     </div>
 
-                    {/* Decorative Background Elements */}
-                    <div className="absolute top-0 right-0 w-[50vw] h-[50vw] bg-white/20 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2" />
-                    <div className="absolute bottom-0 left-0 w-[50vw] h-[50vw] bg-flow-blue/20 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2 mix-blend-multiply" />
+                    {/* RIGHT PANEL: THE FUTURE */}
+                    <div className="future-panel w-full md:w-1/2 h-screen sticky top-0 flex flex-col items-center justify-center p-8 bg-neutral-900">
+                        <h2 className="text-4xl md:text-6xl font-black mb-8 text-cyan-500 tracking-tighter" style={{ fontFamily: '"Press Start 2P", cursive' }}>
+                            THE FUTURE
+                        </h2>
+                        <div className="relative w-64 h-64 md:w-80 md:h-80 border-4 border-cyan-500 pixel-art-container bg-black shadow-[10px_10px_0px_0px_rgba(0,255,255,0.2)]">
+                            <img
+                                src="/images/party-hacker/future.png"
+                                alt="8-bit Programmer Future"
+                                className="w-full h-full object-cover pixelated opacity-0 future-img"
+                                style={{ imageRendering: "pixelated" }}
+                            />
+                            {/* Holographic Overlay */}
+                            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-500/10 to-transparent opacity-50 animate-pulse pointer-events-none" />
+                        </div>
+                        <p className="mt-8 max-w-sm text-center font-mono text-purple-400 text-sm md:text-base leading-relaxed future-text opacity-0">
+                            &gt; SYSTEM UPGRADE<br />
+                            Now we transcend boundaries. AI assistants, neural links, and infinite creativity. The party never stops; it just upgrades. <br />
+                            <span className="animate-pulse">_</span>
+                        </p>
+                    </div>
 
                 </div>
             </div>
