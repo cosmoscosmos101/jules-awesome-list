@@ -4,7 +4,7 @@ import React, { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import FlowHero from "@/components/FlowHero";
+import PartyHackerHero from "@/components/PartyHackerHero";
 import FlowSlider from "@/components/FlowSlider";
 import BentoCard from "@/components/BentoCard";
 
@@ -98,7 +98,7 @@ export default function PartyHackerPage() {
         <main ref={mainRef} className="bg-black min-h-screen selection:bg-flow-pink selection:text-white overflow-x-hidden">
 
             {/* 1. Hero Section */}
-            <FlowHero />
+            <PartyHackerHero />
 
             {/* 2. Events Slider */}
             <section id="events" className="relative z-20 bg-black -mt-20 pt-20 rounded-t-[3rem] pb-20">
