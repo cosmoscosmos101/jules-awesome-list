@@ -40,3 +40,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .env*.local
+
+/lib/generated/prisma
+
+# Temporary ignores
+node_modules_old
+package-lock 2.json

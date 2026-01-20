@@ -625,6 +625,14 @@ const DA_MODULES: CourseModule[] = [
         description: "Calculating variance and standard deviation.",
         content: `Standard Deviation measures the amount of variation or dispersion of a set of values.
 
+## Example
+\`\`\`rust
+let data = vec![1.0, 2.0, 3.0];
+let mean = 2.0;
+let variance: f64 = data.iter().map(|&x| (x - mean).powi(2)).sum::<f64>() / 3.0; // 0.66
+let std_dev = variance.sqrt();
+\`\`\`
+
 Task:
 1. Given data: [2, 4, 4, 4, 5, 5, 7, 9].
 2. Calculate the mean.
@@ -659,6 +667,14 @@ Task:
         description: "Smoothing time series data.",
         content: `Moving averages smooth out short-term fluctuations.
 
+## Example
+\`\`\`rust
+let prices = vec![10.0, 11.0, 12.0];
+// 2-period moving average
+// period 1: (10+11)/2 = 10.5
+// period 2: (11+12)/2 = 11.5
+\`\`\`
+
 Task:
 1. Given prices: [100.0, 102.0, 101.0, 105.0, 110.0].
 2. Calculate a 3-period simple moving average.
@@ -689,6 +705,13 @@ Task:
         description: "Working with dates and times.",
         content: `Handling dates is crucial. We usually use the 'chrono' crate.
 
+## Example
+\`\`\`rust
+// Parsing a date (simulated)
+let date = "2023-01-01";
+let parts: Vec<&str> = date.split('-').collect(); // ["2023", "01", "01"]
+\`\`\`
+
 Task:
 1. Simulate a date string "2023-10-27".
 2. Extract the year, month, and day by splitting the string.
@@ -715,6 +738,13 @@ Task:
         description: "Aggregation by category.",
         content: `Grouping is like SQL GROUP BY.
 
+## Example
+\`\`\`rust
+let data = vec![("A", 1), ("B", 2), ("A", 3)];
+// Sum for A:
+let sum_a: i32 = data.iter().filter(|(k, _)| *k == "A").map(|(_, v)| v).sum();
+\`\`\`
+
 Task:
 1. Given category/value pairs: [("A", 10), ("B", 20), ("A", 30)].
 2. Calculate the sum of values for "A".`,
@@ -739,6 +769,15 @@ Task:
         title: "5. Pivot Tables",
         description: "Multidimensional analysis.",
         content: `Pivoting reshapes data.
+
+## Example
+\`\`\`rust
+// Data: (Row, Col, Val)
+// ("Q1", "A", 10), ("Q1", "B", 20)
+// Pivot:
+//    A   B
+// Q1 10  20
+\`\`\`
 
 Task:
 1. Data: [("Q1", "ProductX", 100), ("Q1", "ProductY", 200), ("Q2", "ProductX", 150)].
@@ -773,6 +812,14 @@ Task:
         description: "Relationships between variables.",
         content: `Correlation measures how two variables move together.
 
+## Example
+\`\`\`rust
+// Perfect positive correlation
+let x = vec![1, 2, 3];
+let y = vec![2, 4, 6];
+// y = 2x
+\`\`\`
+
 Task:
 1. X: [1, 2, 3], Y: [2, 4, 6].
 2. Notice Y = 2 * X. This is perfect positive correlation.
@@ -800,6 +847,14 @@ Task:
         description: "Fitting a line.",
         content: `Linear regression fits a line y = mx + c.
 
+## Example
+\`\`\`rust
+let m = 2.0;
+let c = 1.0;
+let x = 3.0;
+let y_pred = m * x + c; // 7.0
+\`\`\`
+
 Task:
 1. Given points (1, 2), (2, 4), (3, 6).
 2. We know m=2, c=0.
@@ -825,6 +880,13 @@ Task:
         title: "8. Data Visualization",
         description: "Simple text charts.",
         content: `Visualizing data helps understanding.
+
+## Example
+\`\`\`rust
+// Bar chart for [1, 2]
+// | |
+// | | |
+\`\`\`
 
 Task:
 1. Create a vertical bar chart for values [1, 3, 2].
@@ -857,6 +919,14 @@ Task:
         description: "Generating summaries.",
         content: `Reports summarize key metrics.
 
+## Example
+\`\`\`rust
+let rev = 100.0;
+let cost = 80.0;
+let profit = rev - cost;
+println!("Profit: {}", profit);
+\`\`\`
+
 Task:
 1. Given revenue: 5000, expenses: 3000.
 2. Calculate profit margin percentage ((rev - exp) / rev).
@@ -887,6 +957,14 @@ Task:
         description: "Lazy vs Eager evaluation.",
         content: `Polars supports Lazy execution for optimization.
 
+## Example
+\`\`\`rust
+// Eager (Vec):
+let v = vec![1, 2, 3]; // memory used now
+// Lazy:
+// let q = df.lazy().filter(...); // no work done yet
+\`\`\`
+
 Task:
 1. Explain the difference between Eager (immediate) and Lazy (planned) execution in a print statement.
 2. Simulate a "LazyFrame" plan by printing "Plan: Filter -> GroupBy -> Sum".`,
@@ -911,6 +989,13 @@ const ML_MODULES: CourseModule[] = [
         title: "1. Linear Regression",
         description: "Predicting continuous values.",
         content: `Linear Regression attempts to model the relationship between two variables.
+
+## Example
+\`\`\`rust
+// Equation: y = 3x + 2
+let x = 4.0;
+let y = 3.0 * x + 2.0; // 14.0
+\`\`\`
 
 Task:
 1. Model: y = 2x + 1.
@@ -938,6 +1023,12 @@ Task:
 
 Sigmoid(z) = 1 / (1 + e^-z)
 
+## Example
+\`\`\`rust
+let z = 0.0;
+let p = 1.0 / (1.0 + (-0.0 as f64).exp()); // 0.5
+\`\`\`
+
 Task:
 1. Implement the sigmoid function.
 2. Calculate sigmoid(0.0). Should be 0.5.`,
@@ -958,6 +1049,15 @@ Task:
         title: "3. K-Means Clustering",
         description: "Unsupervised grouping.",
         content: `K-Means groups data into k clusters based on distance.
+
+## Example
+\`\`\`rust
+// 1D distance
+let p = 2.0;
+let c1 = 1.0;
+let c2 = 10.0;
+// |p-c1| = 1, |p-c2| = 8 -> Assign to C1
+\`\`\`
 
 Task:
 1. Point P(1, 1). Centroids C1(0, 0) and C2(5, 5).
@@ -993,6 +1093,13 @@ Task:
         description: "Classification by proximity.",
         content: `KNN looks at the 'k' closest points to classify a new point.
 
+## Example
+\`\`\`rust
+// New point is ?
+// Neighbors: [Red, Red, Blue]
+// Majority vote -> Red
+\`\`\`
+
 Task:
 1. Neighbors: [ClassA, ClassA, ClassB].
 2. Count the votes.
@@ -1026,6 +1133,16 @@ Task:
         description: "Branching logic.",
         content: `Decision trees split data based on feature values.
 
+## Example
+\`\`\`rust
+let age = 20;
+if age > 18 {
+    println!("Can vote");
+} else {
+    println!("Cannot vote");
+}
+\`\`\`
+
 Task:
 1. If 'weather' is "sunny", predict "play".
 2. Else if 'weather' is "rainy", predict "stay inside".
@@ -1053,6 +1170,13 @@ Task:
         description: "Ensemble learning.",
         content: `Random Forests average predictions from multiple trees to reduce overfitting.
 
+## Example
+\`\`\`rust
+// Tree 1: 10
+// Tree 2: 20
+// RF Prediction: (10 + 20) / 2 = 15
+\`\`\`
+
 Task:
 1. Tree predictions: [10.0, 12.0, 8.0].
 2. Calculate the average prediction.`,
@@ -1075,6 +1199,14 @@ Task:
         title: "7. Support Vector Machines",
         description: "Finding the best boundary.",
         content: `SVM finds the hyperplane that best divides classes.
+
+## Example
+\`\`\`rust
+// Boundary x = 0
+let point = -5;
+// if point < 0 -> Class Left
+// if point > 0 -> Class Right
+\`\`\`
 
 Task:
 1. Decision boundary: 2x - y = 0.
@@ -1105,6 +1237,13 @@ Task:
         title: "8. Model Evaluation",
         description: "Accuracy and Confusion Matrix.",
         content: `Accuracy = Correct Predictions / Total Predictions.
+
+## Example
+\`\`\`rust
+// Pred:  [1, 0]
+// True:  [1, 1]
+// match, miss -> 1/2 = 50%
+\`\`\`
 
 Task:
 1. Predicted: [1, 0, 1], Actual: [1, 1, 1].
@@ -1138,6 +1277,12 @@ Task:
         description: "Saving and loading models.",
         content: `We often serialize models to disk.
 
+## Example
+\`\`\`rust
+// Saved model JSON
+// { "weights": [0.1, 0.5], "bias": 0.0 }
+\`\`\`
+
 Task:
 1. Struct Model { slope: f64 }.
 2. "Save" it by printing its JSON representation.`,
@@ -1162,6 +1307,12 @@ fn main() {
         description: "Rust's ML Toolkit.",
         content: `Linfa is the Rust equivalent of Scikit-Learn.
 
+## Example
+\`\`\`rust
+// use linfa::prelude::*;
+// let model = KMeans::params(3).fit(&dataset)?;
+\`\`\`
+
 Task:
 1. Print a statement describing what 'Linfa' does.
 2. Mention 2 algorithms it supports (e.g. KMeans, Logistic Regression).`,
@@ -1185,6 +1336,14 @@ const AI_MODULES: CourseModule[] = [
         description: "Multi-dimensional arrays.",
         content: `Tensors are the fundamental data block of AI.
 
+## Example
+\`\`\`rust
+// 2x2 Tensor
+// [[1, 2],
+//  [3, 4]]
+let shape = [2, 2];
+\`\`\`
+
 Task:
 1. Simulate a 3D tensor of shape [2, 2, 2].
 2. Fill it with zeros.
@@ -1204,6 +1363,13 @@ Task:
         title: "2. Auto-Differentiation",
         description: "Calculating gradients.",
         content: `Auto-diff allows us to calculate derivatives automatically for backpropagation.
+
+## Example
+\`\`\`rust
+// f(x) = x^2
+// f'(x) = 2x
+// at x=2, slope=4
+\`\`\`
 
 Task:
 1. Function: f(x) = x^2.
@@ -1226,6 +1392,13 @@ Task:
         title: "3. Neural Networks",
         description: "Layers of neurons.",
         content: `A simple neuron: output = activation(weights * input + bias).
+
+## Example
+\`\`\`rust
+let i = 1.0; let w = 0.5; let b = 0.1;
+let z = w*i + b; // 0.6
+let out = z.max(0.0); // ReLU
+\`\`\`
 
 Task:
 1. Input: 0.5, Weight: 2.0, Bias: -1.0.
@@ -1255,6 +1428,13 @@ Task:
         description: "Non-linearity.",
         content: `Activation functions introduce non-linearity.
 
+## Example
+\`\`\`rust
+fn relu(x: f64) -> f64 {
+    if x > 0.0 { x } else { 0.0 }
+}
+\`\`\`
+
 Task:
 1. Implement ReLU: max(0, x).
 2. Implement Tanh: (e^x - e^-x) / (e^x + e^-x).
@@ -1280,6 +1460,13 @@ Task:
         title: "5. Loss Functions",
         description: "Measuring error.",
         content: `MSE (Mean Squared Error) is common for regression.
+
+## Example
+\`\`\`rust
+let err1 = (1.0 - 0.8) * (1.0 - 0.8);
+let err2 = (0.0 - 0.1) * (0.0 - 0.1);
+let mse = (err1 + err2) / 2.0;
+\`\`\`
 
 Task:
 1. True: [1.0, 0.0], Pred: [0.8, 0.1].
@@ -1311,6 +1498,14 @@ Task:
         description: "SGD steps.",
         content: `SGD updates weights: w = w - learning_rate * grad.
 
+## Example
+\`\`\`rust
+let mut w = 5.0;
+let lr = 0.1;
+let grad = 1.0;
+w -= lr * grad; // 4.9
+\`\`\`
+
 Task:
 1. Weight: 10.0, Grad: 2.0, LR: 0.1.
 2. Update weight 5 times.
@@ -1339,6 +1534,15 @@ Task:
         description: "Epochs and batches.",
         content: `A training loop iterates over epochs using batches.
 
+## Example
+\`\`\`rust
+for epoch in 0..10 {
+    // shuffle data
+    // for batch in chunks...
+    //   update()
+}
+\`\`\`
+
 Task:
 1. 3 Epochs.
 2. Per epoch, print "Epoch X starting...".
@@ -1363,6 +1567,12 @@ Task:
         description: "Using the model.",
         content: `Inference is the forward pass without gradient tracking.
 
+## Example
+\`\`\`rust
+let model = load_model();
+let output = model.predict(input_data);
+\`\`\`
+
 Task:
 1. Simulate a trained model function: f(x) = 3x (weights fixed).
 2. Predict for x=4.`,
@@ -1384,6 +1594,12 @@ Task:
         title: "9. Burn Crate",
         description: "Deep Learning in Rust.",
         content: `Burn is a modern DL framework for Rust.
+
+## Example
+\`\`\`rust
+// use burn::tensor::Tensor;
+// let t = Tensor::from_floats([1.0, 2.0]);
+\`\`\`
 
 Task:
 1. Define a Struct 'MyModel' (empty).
@@ -1413,6 +1629,12 @@ fn main() {
         title: "10. Computer Vision",
         description: "Processing images.",
         content: `Images are tensors (Height, Width, Channels).
+
+## Example
+\`\`\`rust
+// RGB pixel = [255, 0, 0] (Red)
+// Image = Matrix of pixels
+\`\`\`
 
 Task:
 1. Sim 2x2 Grayscale image (0-255).
@@ -1453,6 +1675,14 @@ const CLOUD_MODULES: CourseModule[] = [
         description: "Asynchronous programming.",
         content: `Async/Await allows concurrent execution without threads.
 
+## Example
+\`\`\`rust
+async fn do_work() {
+    // ...
+}
+// await it in a runtime
+\`\`\`
+
 Task:
 1. Define an async function 'hello' that prints "Hello".
 2. Explain that you can't call it directly in main without a runtime (simulated).`,
@@ -1480,6 +1710,15 @@ fn main() {
         description: "The most popular runtime.",
         content: `Tokio executes async tasks.
 
+## Example
+\`\`\`rust
+#[tokio::main]
+async fn main() {
+    let handle = tokio::spawn(async { ... });
+    handle.await;
+}
+\`\`\`
+
 Task:
 1. Simulate spawning a task.
 2. Print "Task spawned".`,
@@ -1497,6 +1736,14 @@ Task:
         title: "3. HTTP Requests",
         description: "Making API calls.",
         content: `Reqwest is the standard HTTP client.
+
+## Example
+\`\`\`rust
+let body = reqwest::get("https://httpbin.org/get")
+    .await?
+    .text()
+    .await?;
+\`\`\`
 
 Task:
 1. Sim GET request to "https://api.rust.com".
@@ -1517,6 +1764,12 @@ Task:
         title: "4. Axum Web Framework",
         description: "Building web servers.",
         content: `Axum is a modular web framework.
+
+## Example
+\`\`\`rust
+let app = Router::new()
+    .route("/", get(|| async { "Hello!" }));
+\`\`\`
 
 Task:
 1. Define a handler function 'root' returning "Welcome".
@@ -1543,6 +1796,12 @@ fn main() {
         description: "SQLx for async SQL.",
         content: `SQLx is an async, type-safe SQL toolkit.
 
+## Example
+\`\`\`rust
+let row: (i64,) = sqlx::query_as("SELECT count(*) FROM users")
+    .fetch_one(&pool).await?;
+\`\`\`
+
 Task:
 1. Sim connecting to Postgres.
 2. Sim query "SELECT * FROM users".`,
@@ -1563,6 +1822,14 @@ Task:
         description: "Containerization.",
         content: `Multi-stage builds reduce image size.
 
+## Example
+\`\`\`dockerfile
+FROM rust as builder
+RUN cargo build --release
+FROM debian
+COPY --from=builder /app/target/release/app .
+\`\`\`
+
 Task:
 1. Print the 'builder' stage using 'rust:latest'.
 2. Print the 'runtime' stage using 'debian:buster-slim'.`,
@@ -1582,6 +1849,14 @@ Task:
         description: "Serverless functions.",
         content: `Rust is perfect for Lambda due to fast cold starts.
 
+## Example
+\`\`\`rust
+// Handler
+async fn func(event: LambdaEvent<Value>) -> Result<_, Error> {
+    Ok("Success")
+}
+\`\`\`
+
 Task:
 1. Sim handling a Lambda event.
 2. Return "Hello from Lambda".`,
@@ -1599,6 +1874,11 @@ Task:
         description: "No server management.",
         content: `Serverless means you just deploy code.
 
+## Example
+\`\`\`text
+User -> API Gateway -> Lambda (Rust Code) -> DynamoDB
+\`\`\`
+
 Task:
 1. Compare "Server" vs "Serverless" in a print statement.`,
         initialCode: `fn main() {
@@ -1614,6 +1894,12 @@ Task:
         title: "9. S3 & Storage",
         description: "Object storage.",
         content: `AWS S3 stores blobs of data.
+
+## Example
+\`\`\`rust
+// s3://my-bucket/puppy.jpg
+client.put_object().bucket("b").key("k").send().await?;
+\`\`\`
 
 Task:
 1. Sim putting a file "data.txt" to bucket "my-bucket".`,
@@ -1636,6 +1922,11 @@ Task:
         title: "10. Microservices",
         description: "Distributed systems.",
         content: `Microservices chat over networks (gRPC/REST).
+
+## Example
+\`\`\`text
+[Order Service] --HTTP--> [Payment Service]
+\`\`\`
 
 Task:
 1. Service A calls Service B.

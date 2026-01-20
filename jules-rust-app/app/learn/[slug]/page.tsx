@@ -6,11 +6,15 @@ import BackgroundCanvas from "@/components/BackgroundCanvas";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { useCourseProgress } from "@/lib/hooks/use-course-progress";
-import { useState, use, useEffect } from "react";
+import { useState, useEffect } from "react";
 import PixelCharacter from "@/components/PixelCharacter";
 import SimulationGame from "@/components/SimulationGame";
 import SimpleMarkdown from "@/components/SimpleMarkdown";
 import AIMathTutor from "@/components/AIMathTutor";
+import { usePremiumStatus } from "@/lib/hooks/use-premium-status";
+import ReactMarkdown from 'react-markdown';
+
+
 
 interface LessonPageProps {
     params: Promise<{
@@ -19,16 +23,24 @@ interface LessonPageProps {
 }
 
 export default function LessonPage({ params }: LessonPageProps) {
-    const resolvedParams = use(params);
-    const { slug } = resolvedParams;
+    const [slug, setSlug] = useState<string | null>(null);
+
+    useEffect(() => {
+        params.then((resolvedParams) => {
+            setSlug(resolvedParams.slug);
+        });
+    }, [params]);
 
     const courseModule = ALL_MODULES.find((m) => m.id === slug);
     const { markAsCompleted, isCompleted, mounted } = useCourseProgress();
+    const { hasPurchasedBundle } = usePremiumStatus();
     const [output, setOutput] = useState("Ready to run...");
     const [isRunning, setIsRunning] = useState(false);
     const [code, setCode] = useState("");
     const [showSuccess, setShowSuccess] = useState(false);
     const [showingSolution, setShowingSolution] = useState(false);
+    const [aiExplanation, setAiExplanation] = useState<string | null>(null);
+    const [aiLoading, setAiLoading] = useState(false);
 
     // Initialize code safely
     useEffect(() => {
@@ -37,18 +49,54 @@ export default function LessonPage({ params }: LessonPageProps) {
         }
     }, [courseModule]);
 
-    const handleToggleSolution = () => {
+    const handleToggleSolution = async () => {
         if (showingSolution) {
             // Switch back to initial code
             setCode(courseModule?.initialCode || "");
             setShowingSolution(false);
+            setAiExplanation(null);
         } else {
-            if (confirm("Are you sure? This will overwrite your current code.")) {
+            if (!hasPurchasedBundle) {
+                alert("🔒 UPGRADE REQUIRED\n\nUnlock the AI-Powered Bundle to see solutions and get instant explanations!");
+                return;
+            }
+
+            if (confirm("Revealing the solution will overwrite your current code. Continue?")) {
                 setCode(courseModule?.solutionCode || "");
                 setShowingSolution(true);
+                fetchAiExplanation();
             }
         }
     };
+
+    const fetchAiExplanation = async () => {
+        if (!courseModule) return;
+        setAiLoading(true);
+        try {
+            const prompt = `Explain this solution code for the lesson "${courseModule.title}":\n\n${courseModule.solutionCode}\n\nProvide a concise, beginner-friendly explanation of how it works.`;
+
+            const res = await fetch("/api/ai-tutor", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message: prompt, context: "EXPLAIN_SOLUTION" }),
+            });
+
+            const data = await res.json();
+            if (data.response) {
+                setAiExplanation(data.response);
+            } else {
+                setAiExplanation("Could not generate explanation.");
+            }
+        } catch (error) {
+            console.error(error);
+            setAiExplanation("Error connecting to AI Tutor.");
+        } finally {
+            setAiLoading(false);
+        }
+    };
+
+
+    if (!slug) return <div className="min-h-screen bg-black text-green-500 font-mono flex items-center justify-center">Initializing...</div>;
 
     if (!courseModule) {
         notFound();
@@ -117,6 +165,23 @@ export default function LessonPage({ params }: LessonPageProps) {
                     <SimpleMarkdown content={courseModule.content} />
                 </div>
 
+                {/* AI Explanation Section */}
+                {(showingSolution || aiLoading || aiExplanation) && (
+                    <div className="mt-8 p-6 bg-accent-purple/10 border border-accent-purple rounded-lg animate-fade-in relative overflow-hidden">
+                        <div className="absolute top-0 right-0 bg-accent-purple text-white text-xs px-2 py-1 rounded-bl">AI EXPLAINER</div>
+                        <h3 className="text-xl font-bold text-accent-cyan mb-4 flex items-center gap-2">
+                            🤖 Bundle Insight
+                        </h3>
+                        {aiLoading ? (
+                            <div className="text-gray-400 animate-pulse">Analyzing solution matrix...</div>
+                        ) : (
+                            <div className="prose prose-invert prose-sm text-gray-300">
+                                <ReactMarkdown>{aiExplanation || "Ready to explain."}</ReactMarkdown>
+                            </div>
+                        )}
+                    </div>
+                )}
+
                 <div className="flex justify-between mt-12 pt-6 border-t border-accent-purple/30">
                     {prevModule ? (
                         <Link href={`/learn/${prevModule.id}`} className="text-accent-cyan hover:text-accent-orange">
@@ -152,9 +217,12 @@ export default function LessonPage({ params }: LessonPageProps) {
                     <div className="flex items-center gap-4">
                         <button
                             onClick={handleToggleSolution}
-                            className={`text-xs px-3 py-1 border rounded transition-colors ${showingSolution ? 'bg-accent-yellow text-black border-accent-yellow' : 'text-gray-400 border-gray-600 hover:text-white hover:border-white'}`}
+                            className={`text-xs px-3 py-1 border rounded transition-colors flex items-center gap-2 ${showingSolution
+                                ? 'bg-accent-yellow text-black border-accent-yellow'
+                                : 'text-accent-orange border-accent-orange hover:bg-accent-orange hover:text-black'
+                                }`}
                         >
-                            {showingSolution ? "HIDE SOLUTION" : "SHOW SOLUTION"}
+                            {showingSolution ? "HIDE SOLUTION" : (hasPurchasedBundle ? "🔓 SHOW SOLUTION" : "🔒 UNLOCK SOLUTION")}
                         </button>
                         {completed && !showSuccess && (
                             <span className="text-accent-green text-sm px-3 py-1 border border-accent-green rounded bg-accent-green/10">
@@ -209,10 +277,10 @@ export default function LessonPage({ params }: LessonPageProps) {
                 </div>
             </div>
 
-            {/* AI Tutor Integration */}
-            {courseModule.id.startsWith("ai-") && (
-                <AIMathTutor context={courseModule.title + ": " + courseModule.description} />
-            )}
+            {/* AI Tutor Integration - Available for all modules */}
+            <AIMathTutor context={courseModule.title + ": " + courseModule.description} />
+
         </div>
     );
 }
+

@@ -1,122 +1,101 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-
-
-type Particle = {
-    id: number;
-    x: number;
-    y: number;
-    life: number;
-    size: number;
-};
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
 export default function CustomCursor() {
-    const [position, setPosition] = useState({ x: 0, y: 0 });
+    const cursorRef = useRef<HTMLDivElement>(null);
+    const ufoRef = useRef<HTMLDivElement>(null);
     const [isHovering, setIsHovering] = useState(false);
-    const [particles, setParticles] = useState<Particle[]>([]);
 
+    // Setup mouse movement tracking
+    useGSAP(() => {
+        const cursor = cursorRef.current;
+        const ufo = ufoRef.current;
+        if (!cursor || !ufo) return;
 
-    useEffect(() => {
-        const updatePosition = (e: MouseEvent) => {
-            setPosition({ x: e.clientX, y: e.clientY });
+        // Initial setup
+        gsap.set(cursor, { xPercent: -50, yPercent: -50, opacity: 0 }); // Start hidden
 
-            // Spawn particle
-            if (Math.random() > 0.3) { // Increased spawn rate
-                const newParticle = {
-                    id: Date.now() + Math.random(),
-                    x: e.clientX,
-                    y: e.clientY,
-                    life: 1.0,
-                    size: Math.random() * 6 + 4, // Bigger: 4-10px
-                };
-                setParticles(prev => [...prev.slice(-30), newParticle]); // More particles
-            }
+        const xTo = gsap.quickTo(cursor, "x", { duration: 0.1, ease: "power3" });
+        const yTo = gsap.quickTo(cursor, "y", { duration: 0.1, ease: "power3" });
 
-            // Check if hovering over clickable element
-            const target = e.target as HTMLElement;
-            const clickable =
-                target.tagName === "BUTTON" ||
-                target.tagName === "A" ||
-                target.closest("button") ||
-                target.closest("a") ||
-                window.getComputedStyle(target).cursor === "pointer";
-
-            setIsHovering(!!clickable);
-        };
-
-        window.addEventListener("mousemove", updatePosition);
-
-        // Hide default cursor
-        document.body.style.cursor = "none";
-        const links = document.querySelectorAll("a, button");
-        links.forEach(link => {
-            (link as HTMLElement).style.cursor = "none";
+        // Continuous rotation for the UFO
+        gsap.to(ufo, {
+            rotation: 360,
+            duration: 3,
+            repeat: -1,
+            ease: "linear",
         });
 
-
-
-        const animateParticles = () => {
-            setParticles(prev =>
-                prev
-                    .map(p => ({ ...p, life: p.life - 0.05, y: p.y + 1 })) // Fall down slightly
-                    .filter(p => p.life > 0)
-            );
-            requestAnimationFrame(animateParticles);
+        const onMouseMove = (e: MouseEvent) => {
+            // Make visible on first move if hidden
+            if (gsap.getProperty(cursor, "opacity") === 0) {
+                gsap.to(cursor, { opacity: 1, duration: 0.2 });
+            }
+            xTo(e.clientX);
+            yTo(e.clientY);
         };
 
-        const particleLoop = requestAnimationFrame(animateParticles);
+        window.addEventListener("mousemove", onMouseMove);
 
         return () => {
-            window.removeEventListener("mousemove", updatePosition);
-            document.body.style.cursor = "auto";
-            cancelAnimationFrame(particleLoop);
+            window.removeEventListener("mousemove", onMouseMove);
         };
     }, []);
 
+    // Setup interaction listeners
+    useEffect(() => {
+        const handleMouseOver = (e: MouseEvent) => {
+            const target = e.target as HTMLElement;
+            // Expanded interactive check
+            const isInteractive =
+                target.tagName === "A" ||
+                target.tagName === "BUTTON" ||
+                target.tagName === "INPUT" ||
+                target.tagName === "TEXTAREA" ||
+                target.tagName === "SELECT" ||
+                target.closest("a") ||
+                target.closest("button") ||
+                target.getAttribute("role") === "button" ||
+                target.classList.contains("interactive");
+
+            setIsHovering(!!isInteractive);
+        };
+
+        window.addEventListener("mouseover", handleMouseOver);
+        window.addEventListener("mouseout", () => setIsHovering(false)); // Ensure reset
+        return () => {
+            window.removeEventListener("mouseover", handleMouseOver);
+            window.removeEventListener("mouseout", () => setIsHovering(false));
+        };
+    }, []);
+
+    // Animate hover state
+    useGSAP(() => {
+        const ufo = ufoRef.current;
+        if (!ufo) return;
+
+        if (isHovering) {
+            gsap.to(ufo, { scale: 1.5, filter: "drop-shadow(0 0 15px rgba(0, 245, 255, 0.9))", duration: 0.3 });
+        } else {
+            gsap.to(ufo, { scale: 1, filter: "drop-shadow(0 0 5px rgba(0, 245, 255, 0.5))", duration: 0.3 });
+        }
+    }, [isHovering]);
+
     return (
-        <>
-            {/* Particles */}
-            {particles.map((p) => (
-                <div
-                    key={p.id}
-                    className="fixed pointer-events-none z-[9998] rounded-full bg-gradient-to-t from-accent-orange via-accent-yellow to-white shadow-[0_0_5px_rgba(255,165,0,0.8)]"
-                    style={{
-                        left: p.x,
-                        top: p.y,
-                        width: p.size,
-                        height: p.size,
-                        opacity: p.life,
-                        transform: `translate(-50%, -50%) scale(${p.life})`,
-                    }}
-                />
-            ))}
-
-            <div
-                className="fixed pointer-events-none z-[9999] mix-blend-difference"
-                style={{
-                    left: position.x,
-                    top: position.y,
-                    transform: "translate(-10%, -10%)", // Slight offset to align tip
-                }}
-            >
-                <div className={`relative transition-all duration-200 ${isHovering ? "scale-125" : "scale-100"}`}>
-                    {/* Soft Light / Glow */}
-                    <div className="absolute inset-0 bg-accent-cyan rounded-full blur-xl opacity-60 animate-pulse"></div>
-
-                    {/* Spinning UFO */}
-                    <div
-                        className="text-4xl animate-spin"
-                        style={{
-                            animationDuration: '3s',
-                            textShadow: '0 0 20px rgba(0, 245, 255, 0.8)'
-                        }}
-                    >
-                        🛸
-                    </div>
-                </div>
+        <div
+            ref={cursorRef}
+            className="fixed top-0 left-0 pointer-events-none z-[10000] hidden md:block"
+            style={{ opacity: 0 }} // Correct inline style for hydration safety
+        >
+            <div ref={ufoRef} className="ufo-icon relative w-12 h-12">
+                <span className="text-6xl select-none filter drop-shadow-[0_0_10px_rgba(0,245,255,0.7)]">
+                    🛸
+                </span>
             </div>
-        </>
+        </div>
     );
 }

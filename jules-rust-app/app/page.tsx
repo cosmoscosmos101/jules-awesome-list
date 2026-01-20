@@ -2,49 +2,23 @@ import BackgroundCanvas from "@/components/BackgroundCanvas";
 import CosmicBackground from "@/components/CosmicBackground";
 import Link from "next/link";
 import { COURSE_TRACKS } from "@/lib/course-data";
+import AnimatedHero from "@/components/AnimatedHero";
 import ScrollingAd from "@/components/ScrollingAd";
+import PricingSection from "@/components/PricingSection";
+import { HomepageSlideshow } from "@/components/HomepageSlideshow";
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen flex flex-col items-center pt-32 p-8 overflow-hidden">
+    <main className="relative min-h-screen flex flex-col items-center overflow-x-hidden bg-black">
       <CosmicBackground />
       <BackgroundCanvas />
 
       {/* Hero Content */}
-      <div className="z-10 flex flex-col items-center text-center space-y-8 max-w-4xl">
-        {/* Animated Greeting */}
-        <div className="space-y-6 cursor-default relative">
-          <div className="absolute -inset-10 bg-accent-purple/20 blur-3xl rounded-full opacity-30 animate-pulse"></div>
-          <h1 className="relative text-5xl md:text-8xl font-black bg-clip-text text-transparent bg-gradient-to-br from-accent-orange via-white to-accent-cyan text-shadow-glow fluid-hover transition-all duration-300 tracking-tighter">
-            &lt;HELLO WORLD /&gt;
-          </h1>
-          <p className="text-xl md:text-3xl text-gray-300 font-light tracking-wide max-w-2xl mx-auto leading-relaxed">
-            🚀 Learn <span className="text-accent-orange font-bold">Rust</span> the fun way 🦀
-          </p>
-        </div>
+      <AnimatedHero />
 
-        {/* Call to Action Actions */}
-        <div className="flex gap-6 flex-wrap justify-center">
-          <Link
-            href="/learn"
-            className="flex items-center justify-center px-8 py-4 bg-accent-orange text-background font-bold text-lg border border-accent-orange hover:bg-transparent hover:text-accent-orange hover:shadow-[0_0_20px_rgba(255,159,28,0.6)] transition-all uppercase tracking-wider pixelated"
-          >
-            🔥 Select Track
-          </Link>
-          <Link
-            href="/ide"
-            className="flex items-center justify-center px-8 py-4 bg-transparent text-accent-cyan font-bold text-lg border border-accent-cyan hover:bg-accent-cyan hover:text-background hover:shadow-[0_0_20px_rgba(0,245,255,0.6)] transition-all uppercase tracking-wider pixelated"
-          >
-            💻 Use IDE
-          </Link>
-          <Link
-            href="/ai-math"
-            className="flex items-center justify-center px-8 py-4 bg-transparent text-accent-purple font-bold text-lg border border-accent-purple hover:bg-accent-purple hover:text-background hover:shadow-[0_0_20px_rgba(126,80,163,0.6)] transition-all uppercase tracking-wider pixelated"
-          >
-            📐 AI Mathematics
-          </Link>
-        </div>
-
+      {/* GSAP Slideshow */}
+      <div className="w-full z-10">
+        <HomepageSlideshow />
       </div>
 
       {/* Features Section */}
@@ -155,6 +129,10 @@ export default function Home() {
               <p className="text-gray-400 text-sm">Cargo, rustfmt, and clippy. A world-class developer experience out of the box.</p>
             </div>
           </div>
+        </div>
+
+        <div className="mt-20 w-full">
+          <PricingSection />
         </div>
 
         <div className="mt-20 w-full mb-8">

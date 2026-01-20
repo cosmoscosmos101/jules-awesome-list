@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Roboto_Mono } from "next/font/google";
+import { Roboto_Mono, Inter } from "next/font/google"; // Added Inter
 import "./globals.css";
 import CustomCursor from "@/components/CustomCursor";
 import RoamingAlien from "@/components/RoamingAlien";
@@ -13,12 +13,19 @@ const robotoMono = Roboto_Mono({
   display: "swap",
 });
 
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "Hack Rust Course",
   description: "Learn Rust the fun way with interactive lessons.",
 };
 
 import { CourseProvider } from "@/lib/context/course-context";
+import GSAPRegistry from "@/components/GSAPRegistry";
 
 export default function RootLayout({
   children,
@@ -27,8 +34,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${robotoMono.variable} antialiased`} suppressHydrationWarning>
+      <body className={`${robotoMono.variable} ${inter.variable} antialiased`} suppressHydrationWarning>
         <CourseProvider>
+          <GSAPRegistry />
           <CustomCursor />
           <NavBar />
           <RoamingAlien />

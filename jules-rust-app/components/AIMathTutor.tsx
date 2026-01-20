@@ -21,13 +21,13 @@ export default function AIMathTutor({ context }: AIMathTutorProps) {
     const [isLoading, setIsLoading] = useState(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
-    const scrollToBottom = () => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    };
-
     useEffect(() => {
+        const scrollToBottom = () => {
+            messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+        };
         scrollToBottom();
     }, [messages, isOpen]);
+
 
     const handleSend = async () => {
         if (!input.trim()) return;
@@ -62,7 +62,7 @@ export default function AIMathTutor({ context }: AIMathTutorProps) {
         return (
             <button
                 onClick={() => setIsOpen(true)}
-                className="fixed bottom-8 right-8 z-50 bg-accent-purple text-white p-4 rounded-full shadow-[0_0_20px_rgba(126,80,163,0.6)] hover:scale-110 transition-transform animate-pulse"
+                className="fixed bottom-8 right-8 z-[100] bg-accent-purple text-white p-4 rounded-full shadow-[0_0_20px_rgba(126,80,163,0.6)] hover:scale-110 transition-transform animate-pulse"
             >
                 <span className="text-2xl">🤖</span>
             </button>
@@ -70,7 +70,7 @@ export default function AIMathTutor({ context }: AIMathTutorProps) {
     }
 
     return (
-        <div className="fixed bottom-8 right-8 z-50 w-full max-w-sm h-96 bg-black/90 backdrop-blur-md border border-accent-purple rounded-lg shadow-2xl flex flex-col overflow-hidden animate-slide-up">
+        <div className="fixed bottom-8 right-8 z-[100] w-full max-w-sm h-96 bg-black/90 backdrop-blur-md border border-accent-purple rounded-lg shadow-2xl flex flex-col overflow-hidden animate-slide-up">
             {/* Header */}
             <div className="bg-accent-purple/20 p-3 border-b border-accent-purple/50 flex justify-between items-center">
                 <h3 className="font-bold text-accent-purple flex items-center gap-2">
