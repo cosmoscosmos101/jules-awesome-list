@@ -63,12 +63,20 @@ export default function NavBar() {
                         <span className="font-bold hidden md:inline">{username}</span>
                     </div>
                 ) : (
-                    <Link
-                        href="/login"
-                        className="px-4 py-2 border border-accent-orange text-accent-orange hover:bg-accent-orange hover:text-white transition-all rounded-sm"
-                    >
-                        Login
-                    </Link>
+                    <div className="flex gap-4">
+                        <Link
+                            href="/login"
+                            className="px-4 py-2 border border-accent-orange text-accent-orange hover:bg-accent-orange hover:text-white transition-all rounded-sm"
+                        >
+                            Login
+                        </Link>
+                        <Link
+                            href="/signup"
+                            className="px-4 py-2 bg-accent-green/10 border border-accent-green text-accent-green hover:bg-accent-green hover:text-black transition-all rounded-sm"
+                        >
+                            Sign Up
+                        </Link>
+                    </div>
                 )}
             </div>
         </nav>

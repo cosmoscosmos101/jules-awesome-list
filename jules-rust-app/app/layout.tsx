@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Roboto_Mono, Inter } from "next/font/google"; // Added Inter
+import { Roboto_Mono, Inter, Unbounded } from "next/font/google"; // Added Inter, Unbounded
 import "./globals.css";
 import CustomCursor from "@/components/CustomCursor";
 import RoamingAlien from "@/components/RoamingAlien";
@@ -15,6 +15,12 @@ const robotoMono = Roboto_Mono({
 
 const inter = Inter({
   variable: "--font-inter",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const unbounded = Unbounded({
+  variable: "--font-unbounded",
   subsets: ["latin"],
   display: "swap",
 });
@@ -34,7 +40,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${robotoMono.variable} ${inter.variable} antialiased`} suppressHydrationWarning>
+      <body className={`${robotoMono.variable} ${inter.variable} ${unbounded.variable} antialiased`} suppressHydrationWarning>
         <CourseProvider>
           <GSAPRegistry />
           <CustomCursor />

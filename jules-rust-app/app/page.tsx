@@ -2,7 +2,8 @@ import BackgroundCanvas from "@/components/BackgroundCanvas";
 import CosmicBackground from "@/components/CosmicBackground";
 import Link from "next/link";
 import { COURSE_TRACKS } from "@/lib/course-data";
-import AnimatedHero from "@/components/AnimatedHero";
+// import AnimatedHero from "@/components/AnimatedHero";
+import NanobananaHero from "@/components/NanobananaHero";
 import ScrollingAd from "@/components/ScrollingAd";
 import PricingSection from "@/components/PricingSection";
 import { HomepageSlideshow } from "@/components/HomepageSlideshow";
@@ -10,14 +11,15 @@ import { HomepageSlideshow } from "@/components/HomepageSlideshow";
 export default function Home() {
   return (
     <main className="relative min-h-screen flex flex-col items-center overflow-x-hidden bg-black">
-      <CosmicBackground />
-      <BackgroundCanvas />
+      {/* Cosmic Backgrounds disabled for Nanobanana flat color theme */}
+      {/* <CosmicBackground /> */}
+      {/* <BackgroundCanvas /> */}
 
       {/* Hero Content */}
-      <AnimatedHero />
+      <NanobananaHero />
 
       {/* GSAP Slideshow */}
-      <div className="w-full z-10">
+      <div className="w-full z-10 relative">
         <HomepageSlideshow />
       </div>
 

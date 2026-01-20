@@ -28,6 +28,11 @@
   --flow-green: #17E668;
   --flow-pink: #FF55B0;
   --flow-black: #121212;
+
+  /* Nanobanana Theme */
+  --nano-blue: #2934D0;
+  --nano-green: #00FF41;
+  --nano-pink: #FF00E6;
 }
 
 @theme {
@@ -40,10 +45,14 @@
   --color-accent-purple: var(--accent-purple);
   --color-code-bg: var(--code-bg);
   --font-mono: var(--font-roboto-mono);
+  --font-unbounded: var(--font-unbounded);
   --color-flow-blue: var(--flow-blue);
   --color-flow-green: var(--flow-green);
   --color-flow-pink: var(--flow-pink);
   --color-flow-black: var(--flow-black);
+  --color-nano-blue: var(--nano-blue);
+  --color-nano-green: var(--nano-green);
+  --color-nano-pink: var(--nano-pink);
 }
 
 body {
