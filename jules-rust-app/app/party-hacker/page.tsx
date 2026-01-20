@@ -103,47 +103,66 @@ export default function PartyHackerPage() {
                 <div ref={whoRef} className="flex flex-col md:flex-row h-[200vh] w-full">
 
                     {/* LEFT PANEL: THE PAST */}
-                    <div className="past-panel w-full md:w-1/2 h-screen sticky top-0 flex flex-col items-center justify-center p-8 bg-neutral-800 border-r-4 border-black">
-                        <h2 className="text-4xl md:text-6xl font-black mb-8 text-yellow-500 tracking-tighter" style={{ fontFamily: '"Press Start 2P", cursive' }}>
-                            THE PAST
-                        </h2>
-                        <div className="relative w-64 h-64 md:w-80 md:h-80 border-4 border-white pixel-art-container bg-black shadow-[10px_10px_0px_0px_rgba(255,255,255,0.2)]">
-                            <img
-                                src="/images/party-hacker/past.png"
-                                alt="8-bit Programmer Past"
-                                className="w-full h-full object-cover pixelated opacity-0 past-img"
-                                style={{ imageRendering: "pixelated" }}
-                            />
-                            {/* Overlay Scanlines */}
-                            <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,6px_100%] pointer-events-none" />
+                    <div className="past-panel w-full md:w-1/2 h-screen sticky top-0 flex flex-col items-center justify-center p-8 bg-neutral-900 border-r-4 border-yellow-900/30 relative overflow-hidden">
+                        {/* Retro Grid Background */}
+                        <div className="absolute inset-0 z-0 opacity-20 pointer-events-none"
+                            style={{ backgroundImage: "linear-gradient(rgba(234, 179, 8, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(234, 179, 8, 0.1) 1px, transparent 1px)", backgroundSize: "40px 40px" }}
+                        />
+
+                        <div className="z-10 text-center">
+                            <h2 className="text-5xl md:text-7xl font-black mb-8 text-yellow-500 tracking-tighter drop-shadow-[0_0_10px_rgba(234,179,8,0.5)]" style={{ fontFamily: 'var(--font-unbounded)' }}>
+                                THE PAST
+                            </h2>
+                            <div className="relative w-64 h-64 md:w-80 md:h-80 border-4 border-yellow-500/50 bg-black shadow-[0_0_30px_rgba(234,179,8,0.2)] rounded-xl overflow-hidden group">
+                                <div className="absolute inset-0 border-2 border-yellow-400/30 rounded-xl z-20 pointer-events-none" />
+                                <img
+                                    src="/images/party-hacker/past_v2.png"
+                                    alt="8-bit Programmer Past"
+                                    className="w-full h-full object-cover pixelated opacity-0 past-img transition-transform duration-700 group-hover:scale-110"
+                                    style={{ imageRendering: "pixelated" }}
+                                />
+                                {/* Overlay CRT Scanlines */}
+                                <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.2)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,6px_100%] pointer-events-none z-10 mix-blend-overlay" />
+                            </div>
+                            <p className="mt-8 max-w-sm text-center font-mono text-yellow-100/80 text-sm md:text-base leading-relaxed past-text opacity-0 bg-yellow-900/10 p-4 rounded-lg border border-yellow-500/20 backdrop-blur-sm">
+                                <span className="text-yellow-400 font-bold">&gt; INSERT_COIN</span><br />
+                                We started in cluttered rooms. Code was raw, screens were heavy, and pizza was the only fuel. The origin of the hack. <br />
+                                <span className="animate-pulse text-yellow-500">_</span>
+                            </p>
                         </div>
-                        <p className="mt-8 max-w-sm text-center font-mono text-green-400 text-sm md:text-base leading-relaxed past-text opacity-0">
-                            &gt; INSERT COIN<br />
-                            We started in cluttered rooms, fueled by caffeine and curiosity. The code was raw, the screens were heavy, and the connection was dial-up. <br />
-                            <span className="animate-pulse">_</span>
-                        </p>
                     </div>
 
                     {/* RIGHT PANEL: THE FUTURE */}
-                    <div className="future-panel w-full md:w-1/2 h-screen sticky top-0 flex flex-col items-center justify-center p-8 bg-neutral-900">
-                        <h2 className="text-4xl md:text-6xl font-black mb-8 text-cyan-500 tracking-tighter" style={{ fontFamily: '"Press Start 2P", cursive' }}>
-                            THE FUTURE
-                        </h2>
-                        <div className="relative w-64 h-64 md:w-80 md:h-80 border-4 border-cyan-500 pixel-art-container bg-black shadow-[10px_10px_0px_0px_rgba(0,255,255,0.2)]">
-                            <img
-                                src="/images/party-hacker/future.png"
-                                alt="8-bit Programmer Future"
-                                className="w-full h-full object-cover pixelated opacity-0 future-img"
-                                style={{ imageRendering: "pixelated" }}
-                            />
-                            {/* Holographic Overlay */}
-                            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-500/10 to-transparent opacity-50 animate-pulse pointer-events-none" />
+                    <div className="future-panel w-full md:w-1/2 h-screen sticky top-0 flex flex-col items-center justify-center p-8 bg-black relative overflow-hidden">
+                        {/* Cyber Grid Background */}
+                        <div className="absolute inset-0 z-0 opacity-20 pointer-events-none"
+                            style={{ backgroundImage: "linear-gradient(rgba(6, 182, 212, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(168, 85, 247, 0.1) 1px, transparent 1px)", backgroundSize: "60px 60px" }}
+                        />
+
+                        <div className="z-10 text-center">
+                            <h2 className="text-5xl md:text-7xl font-black mb-8 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500 tracking-tighter drop-shadow-[0_0_15px_rgba(6,182,212,0.5)]" style={{ fontFamily: 'var(--font-unbounded)' }}>
+                                THE FUTURE
+                            </h2>
+                            <div className="relative w-64 h-64 md:w-80 md:h-80 border-4 border-cyan-500/50 bg-black shadow-[0_0_40px_rgba(6,182,212,0.3)] rounded-xl overflow-hidden group">
+                                {/* Decor HUD Elements */}
+                                <div className="absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 border-cyan-400 z-20" />
+                                <div className="absolute bottom-2 right-2 w-4 h-4 border-b-2 border-r-2 border-purple-500 z-20" />
+
+                                <img
+                                    src="/images/party-hacker/future_v2.png"
+                                    alt="8-bit Programmer Future"
+                                    className="w-full h-full object-cover pixelated opacity-0 future-img transition-transform duration-700 group-hover:scale-110"
+                                    style={{ imageRendering: "pixelated" }}
+                                />
+                                {/* Holographic Overlay */}
+                                <div className="absolute inset-0 bg-gradient-to-b from-cyan-500/5 via-transparent to-purple-500/5 opacity-50 pointer-events-none z-10" />
+                            </div>
+                            <p className="mt-8 max-w-sm text-center font-mono text-cyan-100/80 text-sm md:text-base leading-relaxed future-text opacity-0 bg-cyan-900/10 p-4 rounded-lg border border-cyan-500/20 backdrop-blur-sm">
+                                <span className="text-cyan-400 font-bold">&gt; SYSTEM_UPGRADE</span><br />
+                                Neural links. AI assistants. Infinite creativity. The party transcends physical boundaries and enters the digital ether. <br />
+                                <span className="animate-pulse text-purple-500">_</span>
+                            </p>
                         </div>
-                        <p className="mt-8 max-w-sm text-center font-mono text-purple-400 text-sm md:text-base leading-relaxed future-text opacity-0">
-                            &gt; SYSTEM UPGRADE<br />
-                            Now we transcend boundaries. AI assistants, neural links, and infinite creativity. The party never stops; it just upgrades. <br />
-                            <span className="animate-pulse">_</span>
-                        </p>
                     </div>
 
                 </div>
