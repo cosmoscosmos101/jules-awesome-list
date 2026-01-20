@@ -59,19 +59,19 @@ export default function NanobananaHero() {
             </div>
 
             <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none p-4">
-                <h1 ref={textRef} className="text-white text-5xl md:text-8xl font-black text-center leading-tight tracking-tighter uppercase drop-shadow-lg">
-                    {/* Breaking text into words for animation */}
-                    <span className="inline-block overflow-hidden"><span className="hero-text-word inline-block">The</span></span>{" "}
-                    <span className="inline-block overflow-hidden"><span className="hero-text-word inline-block">Flow</span></span>{" "}
-                    <span className="inline-block overflow-hidden"><span className="hero-text-word inline-block">Party</span></span>{" "}
-                    <br className="hidden md:block" />
-                    <span className="inline-block overflow-hidden"><span className="hero-text-word inline-block">is</span></span>{" "}
-                    <span className="inline-block overflow-hidden"><span className="hero-text-word inline-block">an</span></span>{" "}
-                    <span className="inline-block overflow-hidden"><span className="hero-text-word inline-block">Inclusive</span></span>
-                    <br className="hidden md:block" />
-                    <span className="inline-block overflow-hidden"><span className="hero-text-word inline-block">&</span></span>{" "}
-                    <span className="inline-block overflow-hidden"><span className="hero-text-word inline-block">Fun</span></span>{" "}
-                    <span className="inline-block overflow-hidden"><span className="hero-text-word inline-block">Space</span></span>
+                <h1 ref={textRef} className="text-white flex flex-col items-center justify-center text-center z-50">
+                    <div className="text-6xl md:text-9xl font-black tracking-tighter uppercase drop-shadow-2xl flex items-center gap-2 md:gap-4 mb-4">
+                        <span className="inline-block overflow-hidden"><span className="hero-text-word inline-block text-accent-cyan">&lt;</span></span>
+                        <span className="inline-block overflow-hidden"><span className="hero-text-word inline-block text-white">HELLO</span></span>
+                        <span className="inline-block overflow-hidden"><span className="hero-text-word inline-block text-white">WORLD</span></span>
+                        <span className="inline-block overflow-hidden"><span className="hero-text-word inline-block text-accent-cyan">/&gt;</span></span>
+                    </div>
+
+                    <div className="text-xl md:text-4xl font-bold tracking-wide normal-case flex flex-wrap items-center justify-center gap-2 md:gap-3 opacity-0 animate-[fadeIn_1s_ease-out_1.5s_forwards]">
+                        <span className="animate-bounce">🚀</span>
+                        <span className="text-gray-200">Learn <span className="text-accent-orange">Rust</span> the fun way</span>
+                        <span className="animate-bounce delay-100">🦀</span>
+                    </div>
                 </h1>
             </div>
 
